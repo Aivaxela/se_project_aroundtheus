@@ -1,0 +1,49 @@
+@media screen and (max-width: 918px) {
+    .profile__title {
+        font-size: 32px;
+    }
+
+    .profile__add-button {
+        min-width: 50px;
+    }
+  }
+
+@media screen and (max-width: 619px) {
+    .header {
+      padding: 0;
+    }
+  
+    .header__logo {
+    padding: 0 19px;
+    }
+  
+    .profile {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+    
+      .profile__info {
+        width: 100%;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .profile__title {
+        font-size: 22px;
+      }
+    
+      .profile__description {
+        padding-bottom: 30px;
+        width: 100%;
+        text-align: center;
+      }
+    
+      .profile__add-button {
+        margin: 0;
+        width: 100%;
+      }
+  }
+
+ 
