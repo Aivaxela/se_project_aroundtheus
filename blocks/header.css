@@ -1,0 +1,16 @@
+.header {
+  margin-top: 45px;
+  margin: 45px auto 0;
+  max-width: 880px;
+}
+
+.header__logo {
+  margin-bottom: 41px;
+}
+
+.header__divider {
+  margin: 0;
+  border-width: 0 0 1px 0;
+  border-style: solid;
+  border-color: #545454;
+}
