@@ -14,4 +14,12 @@
   border-color: #545454;
 }
 
+@media screen and (max-width: 619px) {
+  .header {
+    padding: 0;
+  }
 
+  .header__logo {
+  padding: 0 19px;
+  }
+}
