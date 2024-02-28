@@ -6,6 +6,7 @@
 - Figma
 - Images
 - Tools
+- Video review
 
 **Intro**
 
@@ -22,3 +23,7 @@ Images and icons have been exported from the Figma design.
 **Tools**
 
 The primary skills excercised to make this page responsive are a combination of flex and grid displays, alongside flexible widths and media queries.
+
+**Video review**
+
+- [Video review of the project](https://drive.google.com/file/d/1FN6HHJcRgkZjldbySq1HQ19w73eOQOOd/view?usp=sharing)
