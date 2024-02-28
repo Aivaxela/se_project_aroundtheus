@@ -3,6 +3,7 @@
 ### Overview
 
 - Intro
+- Link to Project
 - Figma
 - Images
 - Tools
@@ -11,6 +12,10 @@
 **Intro**
 
 This project is made so all the elements are displayed correctly on popular screen sizes, using a Figma design for reference.
+
+**Link to Project**
+
+[Link to my project on GitHub Pages!](https://aivaxela.github.io/se_project_aroundtheus/)
 
 **Figma**
 

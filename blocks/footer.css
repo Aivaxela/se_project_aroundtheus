@@ -1,6 +1,9 @@
 .footer {
   margin-top: 70px;
   margin-bottom: 35px;
+}
+
+.footer__copywrite {
   color: #545454;
   font-family: Inter, Arial;
   font-weight: 400;

@@ -64,6 +64,10 @@
   border-color: white;
 }
 
+.profile__edit-button:hover {
+  opacity: .6;
+}
+
 .profile__add-button {
   margin-left: auto;
   background: transparent url(../images/add-button.svg) center no-repeat;
@@ -72,6 +76,10 @@
   border-style: solid;
   border-width: 2px;
   border-color: white;
+}
+
+.profile__add-button:hover {
+  opacity: .6;
 }
 
 @media screen and (max-width: 918px) {
