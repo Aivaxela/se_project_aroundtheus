@@ -6,7 +6,7 @@
   margin: 0;
   padding: 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, 282px);
+  grid-template-columns: repeat(auto-fit, minmax(282px, min-content));
   justify-content: center;
   grid-gap: 20px 17px;
   list-style-type: none;

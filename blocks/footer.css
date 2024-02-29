@@ -3,8 +3,18 @@
   margin-bottom: 35px;
 }
 
-.footer__copywrite {
+.footer__copyright {
+  margin: 0;
   color: #545454;
-  font-family: Inter, Arial;
+  font-size: 18px;
+  line-height: 22px;
+  font-family: Inter, Arial, sans-serif;
   font-weight: 400;
+}
+
+@media screen and (max-width: 619px) {
+  .footer__copyright {
+    font-size: 14px;
+    line-height: 17px;
+  }
 }

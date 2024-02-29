@@ -4,7 +4,6 @@
 }
 
 .card__image {
-  width: 282px;
   height: 282px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -23,7 +22,7 @@
 }
 
 .card__title {
-  font-family: Inter, Arial;
+  font-family: Inter, Arial, sans-serif;
   font-weight: 900;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -35,8 +34,9 @@
   height: 18px;
   width: 21px;
   border-style: none;
+  cursor: pointer;
 }
 
 .card__like-button:hover {
-  opacity: .5;
+  opacity: 0.5;
 }
