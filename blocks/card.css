@@ -3,18 +3,7 @@
   flex-direction: column;
 }
 
-.card__list {
-  margin: 0;
-  padding: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, 282px);
-  justify-content: center;
-  grid-gap: 20px 17px;
-  list-style-type: none;
-}
-
 .card__image {
-  width: 282px;
   height: 282px;
   border-top-left-radius: 10px;
   border-top-right-radius: 10px;
@@ -33,7 +22,7 @@
 }
 
 .card__title {
-  font-family: Inter, Arial;
+  font-family: Inter, Arial, sans-serif;
   font-weight: 900;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -45,4 +34,9 @@
   height: 18px;
   width: 21px;
   border-style: none;
+  cursor: pointer;
+}
+
+.card__like-button:hover {
+  opacity: 0.5;
 }

@@ -3,6 +3,7 @@
 ### Overview
 
 - Intro
+- Link to Project
 - Figma
 - Images
 - Tools
@@ -11,6 +12,10 @@
 **Intro**
 
 This project is made so all the elements are displayed correctly on popular screen sizes, using a Figma design for reference.
+
+**Link to Project**
+
+[Link to my project on GitHub Pages!](https://aivaxela.github.io/se_project_aroundtheus/)
 
 **Figma**
 
@@ -26,4 +31,4 @@ The primary skills excercised to make this page responsive are a combination of 
 
 **Video review**
 
-- [Video review of the project](https://drive.google.com/file/d/1FN6HHJcRgkZjldbySq1HQ19w73eOQOOd/view?usp=sharing)
+- [Video review of the project](https://drive.google.com/file/d/1O5q8L90ArLYaTEgddT5xfjrGWsAaAY_V/view?usp=sharing)
