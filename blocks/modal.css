@@ -12,12 +12,13 @@
   display: none;
 }
 
-.modal__opened {
+.modal_opened {
   display: flex;
 }
 
 .modal__container {
   margin: auto;
+  min-width: 430px;
   padding: 34px;
   background-color: white;
   border-radius: 10px;
@@ -40,7 +41,6 @@
 
 .modal__input {
   padding: 0;
-  width: 358px;
   font-family: Inter, Arial, sans-serif;
   font-weight: 400;
   font-size: 14px;
@@ -91,13 +91,10 @@
 @media screen and (max-width: 619px) {
   .modal__container {
     padding: 22px;
+    min-width: 238px;
   }
   .modal__heading {
     margin: 0 0 65px;
-  }
-
-  .modal__input {
-    width: 238px;
   }
 
   .modal__close {

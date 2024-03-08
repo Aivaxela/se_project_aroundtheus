@@ -36,36 +36,50 @@ const nameInput = modalForm.querySelector("input[name='title']");
 const jobInput = modalForm.querySelector("input[name='description']");
 
 for (let i = 0; i < initialCards.length; i++) {
-  getCardElement(initialCards[i]);
+  renderCard(initialCards[i]);
 }
 
 function getCardElement(data) {
-  let cardTemplate = document.querySelector("#card").content;
-  let cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-  let cardTitle = cardElement.querySelector(".card__title");
-  let cardImage = cardElement.querySelector(".card__image");
+  const cardTemplate = document.querySelector("#card").content;
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardTitle = cardElement.querySelector(".card__title");
+  const cardImage = cardElement.querySelector(".card__image");
   cardTitle.textContent = data.name;
   cardImage.alt = data.name;
   cardImage.src = data.link;
-  document.querySelector(".cards__list").append(cardElement);
+  return cardElement;
+}
+
+function renderCard(data) {
+  const cardElement = getCardElement(data);
+  document.querySelector(".cards__list").prepend(cardElement);
 }
 
 profileEditButton.addEventListener("click", openModal);
+modalForm.addEventListener("submit", handleProfileFormSubmit);
+modalCloseButton.addEventListener("click", closeModal);
+
 function openModal() {
-  modal.classList.toggle("modal__opened");
+  modal.classList.add("modal_opened");
+  populateProfileForm();
+}
+
+function handleProfileFormSubmit(evt) {
+  evt.preventDefault();
+  updateProfileTextElements();
+  closeModal();
+}
+
+function closeModal() {
+  modal.classList.remove("modal_opened");
+}
+
+function populateProfileForm() {
   nameInput.value = profileName.textContent;
   jobInput.value = profileJob.textContent;
 }
 
-modalForm.addEventListener("submit", handleProfileFormSubmit);
-function handleProfileFormSubmit(evt) {
-  evt.preventDefault();
+function updateProfileTextElements() {
   profileName.textContent = nameInput.value;
   profileJob.textContent = jobInput.value;
-  modal.classList.toggle("modal__opened");
-}
-
-modalCloseButton.addEventListener("click", closeModal);
-function closeModal() {
-  modal.classList.toggle("modal__opened");
 }
