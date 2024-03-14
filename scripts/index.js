@@ -35,8 +35,15 @@ const modalCloseButton = modal.querySelector(".modal__close");
 const nameInput = modalForm.querySelector("input[name='title']");
 const jobInput = modalForm.querySelector("input[name='description']");
 
-for (let i = 0; i < initialCards.length; i++) {
-  renderCard(initialCards[i]);
+// for (let i = 0; i < initialCards.length; i++) {
+//   renderCard(initialCards[i]);
+// }
+
+initialCards.forEach((card) => renderCard(card));
+
+function renderCard(card) {
+  const cardElement = getCardElement(card);
+  document.querySelector(".cards__list").prepend(cardElement);
 }
 
 function getCardElement(data) {
@@ -48,11 +55,6 @@ function getCardElement(data) {
   cardImage.alt = data.name;
   cardImage.src = data.link;
   return cardElement;
-}
-
-function renderCard(data) {
-  const cardElement = getCardElement(data);
-  document.querySelector(".cards__list").prepend(cardElement);
 }
 
 profileEditButton.addEventListener("click", openModal);
