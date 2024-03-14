@@ -27,17 +27,17 @@ const initialCards = [
 
 const profile = document.querySelector(".profile");
 const profileEditButton = profile.querySelector(".profile__edit-button");
+const profileAddButton = profile.querySelector(".profile__add-button");
 const profileName = profile.querySelector(".profile__title");
 const profileJob = profile.querySelector(".profile__description");
 const modal = document.querySelector(".modal");
 const modalForm = modal.querySelector(".modal__form");
+const modalHeader = modal.querySelector(".modal__heading");
+const modalButton = modal.querySelector(".modal__button");
 const modalCloseButton = modal.querySelector(".modal__close");
-const nameInput = modalForm.querySelector("input[name='title']");
-const jobInput = modalForm.querySelector("input[name='description']");
-
-// for (let i = 0; i < initialCards.length; i++) {
-//   renderCard(initialCards[i]);
-// }
+const modalNameInput = modalForm.querySelector("input[name='title']");
+const modalJobInput = modalForm.querySelector("input[name='description']");
+let currentModal;
 
 initialCards.forEach((card) => renderCard(card));
 
@@ -57,31 +57,55 @@ function getCardElement(data) {
   return cardElement;
 }
 
-profileEditButton.addEventListener("click", openModal);
+profileEditButton.addEventListener("click", () => openModal("profile-edit"));
+profileAddButton.addEventListener("click", () => openModal("profile-add"));
 modalForm.addEventListener("submit", handleProfileFormSubmit);
 modalCloseButton.addEventListener("click", closeModal);
 
-function openModal() {
+function openModal(str) {
   modal.classList.add("modal_opened");
-  populateProfileForm();
+  if (str === "profile-edit") {
+    populateProfileEditForm();
+    currentModal = "profile-edit";
+  } else if (str === "profile-add") {
+    populateProfileAddForm();
+    currentModal = "profile-add";
+  }
 }
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  updateProfileTextElements();
-  closeModal();
+  if (currentModal === "profile-edit") {
+    updateProfileTextElements();
+    closeModal();
+  } else if (currentModal === "profile-add") {
+    closeModal();
+  }
 }
 
 function closeModal() {
   modal.classList.remove("modal_opened");
 }
 
-function populateProfileForm() {
-  nameInput.value = profileName.textContent;
-  jobInput.value = profileJob.textContent;
+function populateProfileEditForm() {
+  modalHeader.textContent = "Edit Profile";
+  modalNameInput.value = profileName.textContent;
+  modalNameInput.placeholder = "Name";
+  modalJobInput.value = profileJob.textContent;
+  modalJobInput.placeholder = "Description";
+  modalButton.textContent = "Save";
+}
+
+function populateProfileAddForm() {
+  modalHeader.textContent = "New place";
+  modalNameInput.value = "";
+  modalNameInput.placeholder = "Title";
+  modalJobInput.value = "";
+  modalJobInput.placeholder = "Image link";
+  modalButton.textContent = "Create";
 }
 
 function updateProfileTextElements() {
-  profileName.textContent = nameInput.value;
-  profileJob.textContent = jobInput.value;
+  profileName.textContent = modalNameInput.value;
+  profileJob.textContent = modalJobInput.value;
 }
