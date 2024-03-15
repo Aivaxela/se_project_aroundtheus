@@ -79,6 +79,30 @@ function openModal(str) {
   }
 }
 
+function handleCardElementsSelect(evt) {
+  let target = evt.target;
+
+  switch (target) {
+    case "card__like-button":
+      evt.target.classList.toggle("card__like-button_pressed");
+      break;
+
+    default:
+      break;
+  }
+
+  if (target.classList.contains("card__like-button")) {
+  }
+  if (target.classList.contains("card__delete-button")) {
+    deleteImageCard(evt.target);
+  }
+  if (target.classList.contains("card__image")) {
+    let image = target.src;
+    let caption = target.alt;
+    openImageModal(image, caption);
+  }
+}
+
 function closeModal() {
   modal.classList.remove("modal_opened");
 }
@@ -132,21 +156,6 @@ function addNewImageCard() {
     link: modalInput2.value,
   };
   renderCard(newCard);
-}
-
-function handleCardElementsSelect(evt) {
-  let target = evt.target;
-  if (target.classList.contains("card__like-button")) {
-    evt.target.classList.toggle("card__like-button_pressed");
-  }
-  if (target.classList.contains("card__delete-button")) {
-    deleteImageCard(evt.target);
-  }
-  if (target.classList.contains("card__image")) {
-    let image = target.src;
-    let caption = target.alt;
-    openImageModal(image, caption);
-  }
 }
 
 function deleteImageCard(card) {
