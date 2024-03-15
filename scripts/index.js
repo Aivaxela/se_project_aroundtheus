@@ -29,6 +29,7 @@ const profileEditButton = profile.querySelector(".profile__edit-button");
 const profileAddButton = profile.querySelector(".profile__add-button");
 const profileName = profile.querySelector(".profile__title");
 const profileJob = profile.querySelector(".profile__description");
+const cards = document.querySelector(".cards");
 const modal = document.querySelector(".modal");
 const modalForm = modal.querySelector(".modal__form");
 const modalHeader = modal.querySelector(".modal__heading");
@@ -58,6 +59,7 @@ function getCardElement(data) {
 
 profileEditButton.addEventListener("click", () => openModal("profile-edit"));
 profileAddButton.addEventListener("click", () => openModal("profile-add"));
+cards.addEventListener("click", handleCardLikeSelect);
 modalForm.addEventListener("submit", handleProfileFormSubmit);
 modalCloseButton.addEventListener("click", closeModal);
 
@@ -117,4 +119,10 @@ function addNewImageCard() {
   };
   initialCards.unshift(newCard);
   renderCard(newCard);
+}
+
+function handleCardLikeSelect(evt) {
+  if (evt.target.classList.contains("card__like-button")) {
+    evt.target.classList.toggle("card__like-button_pressed");
+  }
 }
