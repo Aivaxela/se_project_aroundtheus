@@ -37,6 +37,10 @@ const modalButton = modal.querySelector(".modal__button");
 const modalCloseButton = modal.querySelector(".modal__close");
 const modalInput1 = modalForm.querySelector("input[name='input1']");
 const modalInput2 = modalForm.querySelector("input[name='input2']");
+const imageModal = document.querySelector(".image-modal");
+const imageModalImage = imageModal.querySelector(".image-modal__image");
+const imageModalCaption = imageModal.querySelector(".image-modal__caption");
+const imageModalCloseButton = imageModal.querySelector(".image-modal__close");
 let currentModal;
 
 initialCards.forEach((card) => renderCard(card));
@@ -62,6 +66,7 @@ profileAddButton.addEventListener("click", () => openModal("profile-add"));
 cards.addEventListener("click", handleCardElementsSelect);
 modalForm.addEventListener("submit", handleProfileFormSubmit);
 modalCloseButton.addEventListener("click", closeModal);
+imageModalCloseButton.addEventListener("click", closeImageModal);
 
 function openModal(str) {
   modal.classList.add("modal_opened");
@@ -74,19 +79,28 @@ function openModal(str) {
   }
 }
 
+function closeModal() {
+  modal.classList.remove("modal_opened");
+}
+
+function openImageModal(image, caption) {
+  imageModal.classList.add("image-modal_opened");
+  imageModalImage.src = image;
+  imageModalCaption.textContent = caption;
+}
+
+function closeImageModal() {
+  imageModal.classList.remove("image-modal_opened");
+}
+
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   if (currentModal === "profile-edit") {
     updateProfileTextElements();
   } else if (currentModal === "profile-add") {
     addNewImageCard();
-    console.log("submitted new image");
   }
   closeModal();
-}
-
-function closeModal() {
-  modal.classList.remove("modal_opened");
 }
 
 function populateProfileEditForm() {
@@ -121,14 +135,17 @@ function addNewImageCard() {
 }
 
 function handleCardElementsSelect(evt) {
-  let target = evt.target.classList;
-  if (target.contains("card__like-button")) {
+  let target = evt.target;
+  if (target.classList.contains("card__like-button")) {
     evt.target.classList.toggle("card__like-button_pressed");
   }
-  if (target.contains("card__delete-button")) {
+  if (target.classList.contains("card__delete-button")) {
     deleteImageCard(evt.target);
   }
-  if (target.contains("card__delete-button")) {
+  if (target.classList.contains("card__image")) {
+    let image = target.src;
+    let caption = target.alt;
+    openImageModal(image, caption);
   }
 }
 

@@ -1,5 +1,4 @@
 .image-modal {
-  padding: 0 19px;
   position: fixed;
   top: 0;
   left: 0;
@@ -10,6 +9,14 @@
   z-index: 999;
   display: flex;
   display: none;
+}
+
+.image-modal__container {
+  padding: 0 40px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 
 .image-modal_opened {
@@ -26,6 +33,28 @@
   background-size: contain;
   position: absolute;
   bottom: calc(100% + 5px);
-  left: calc(100% + 5px);
+  left: calc(100% - 35px);
   cursor: pointer;
+}
+
+.image-modal__image {
+  max-width: 75vw;
+  max-height: 75vh;
+}
+
+.image-modal__caption {
+  margin: 10px 0 0;
+  color: #fff;
+  font-family: Inter, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+@media screen and (max-width: 619px) {
+  .image-modal__close {
+    width: 26px;
+    height: 26px;
+    bottom: calc(100% + 5px);
+    left: calc(100% - 35px);
+  }
 }

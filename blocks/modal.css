@@ -12,10 +12,6 @@
   display: none;
 }
 
-.modal_opened {
-  display: flex;
-}
-
 .modal__container {
   margin: auto;
   min-width: 430px;
@@ -25,13 +21,8 @@
   position: relative;
 }
 
-.modal__image-container {
-  margin: auto;
-  min-width: 430px;
-  padding: 34px;
-  background-color: white;
-  border-radius: 10px;
-  position: relative;
+.modal_opened {
+  display: flex;
 }
 
 .modal__heading {
