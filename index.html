@@ -47,6 +47,11 @@
           <template id="card"
             ><li class="card">
               <img src="" alt="" class="card__image" />
+              <button
+                class="card__delete-button"
+                type="button"
+                aria-label="delete button"
+              ></button>
               <div class="card__description">
                 <h2 class="card__title"></h2>
                 <button
@@ -83,6 +88,15 @@
           <button class="modal__button" type="submit">Save</button>
         </form>
       </div>
+    </div>
+    <div class="image-modal">
+      <button class="image-modal__close"></button>
+      <img
+        class="image-modal__image"
+        src="https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?q=80&w=3313&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+        alt="image-enlarged"
+      />
+      <p class="image-modal__caption"></p>
     </div>
 
     <script src="./scripts/index.js" defer></script>

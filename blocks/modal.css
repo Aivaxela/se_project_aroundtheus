@@ -25,6 +25,15 @@
   position: relative;
 }
 
+.modal__image-container {
+  margin: auto;
+  min-width: 430px;
+  padding: 34px;
+  background-color: white;
+  border-radius: 10px;
+  position: relative;
+}
+
 .modal__heading {
   margin: 0 0 42px;
   font-family: Inter, Arial, sans-serif;

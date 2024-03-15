@@ -59,7 +59,7 @@ function getCardElement(data) {
 
 profileEditButton.addEventListener("click", () => openModal("profile-edit"));
 profileAddButton.addEventListener("click", () => openModal("profile-add"));
-cards.addEventListener("click", handleCardLikeSelect);
+cards.addEventListener("click", handleCardElementsSelect);
 modalForm.addEventListener("submit", handleProfileFormSubmit);
 modalCloseButton.addEventListener("click", closeModal);
 
@@ -117,12 +117,21 @@ function addNewImageCard() {
     name: modalInput1.value,
     link: modalInput2.value,
   };
-  initialCards.unshift(newCard);
   renderCard(newCard);
 }
 
-function handleCardLikeSelect(evt) {
-  if (evt.target.classList.contains("card__like-button")) {
+function handleCardElementsSelect(evt) {
+  let target = evt.target.classList;
+  if (target.contains("card__like-button")) {
     evt.target.classList.toggle("card__like-button_pressed");
   }
+  if (target.contains("card__delete-button")) {
+    deleteImageCard(evt.target);
+  }
+  if (target.contains("card__delete-button")) {
+  }
+}
+
+function deleteImageCard(card) {
+  card.closest(".card").remove();
 }
