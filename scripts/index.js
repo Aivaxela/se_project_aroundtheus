@@ -24,7 +24,6 @@ const initialCards = [
     link: "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?q=80&w=3313&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 ];
-
 const profile = document.querySelector(".profile");
 const profileEditButton = profile.querySelector(".profile__edit-button");
 const profileAddButton = profile.querySelector(".profile__add-button");
@@ -35,8 +34,8 @@ const modalForm = modal.querySelector(".modal__form");
 const modalHeader = modal.querySelector(".modal__heading");
 const modalButton = modal.querySelector(".modal__button");
 const modalCloseButton = modal.querySelector(".modal__close");
-const modalNameInput = modalForm.querySelector("input[name='title']");
-const modalJobInput = modalForm.querySelector("input[name='description']");
+const modalInput1 = modalForm.querySelector("input[name='input1']");
+const modalInput2 = modalForm.querySelector("input[name='input2']");
 let currentModal;
 
 initialCards.forEach((card) => renderCard(card));
@@ -77,10 +76,11 @@ function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   if (currentModal === "profile-edit") {
     updateProfileTextElements();
-    closeModal();
   } else if (currentModal === "profile-add") {
-    closeModal();
+    addNewImageCard();
+    console.log("submitted new image");
   }
+  closeModal();
 }
 
 function closeModal() {
@@ -89,23 +89,32 @@ function closeModal() {
 
 function populateProfileEditForm() {
   modalHeader.textContent = "Edit Profile";
-  modalNameInput.value = profileName.textContent;
-  modalNameInput.placeholder = "Name";
-  modalJobInput.value = profileJob.textContent;
-  modalJobInput.placeholder = "Description";
+  modalInput1.placeholder = "Name";
+  modalInput2.placeholder = "Description";
   modalButton.textContent = "Save";
+  modalInput1.value = profileName.textContent;
+  modalInput2.value = profileJob.textContent;
 }
 
 function populateProfileAddForm() {
   modalHeader.textContent = "New place";
-  modalNameInput.value = "";
-  modalNameInput.placeholder = "Title";
-  modalJobInput.value = "";
-  modalJobInput.placeholder = "Image link";
+  modalInput1.placeholder = "Title";
+  modalInput2.placeholder = "Image link";
   modalButton.textContent = "Create";
+  modalInput1.value = "";
+  modalInput2.value = "";
 }
 
 function updateProfileTextElements() {
-  profileName.textContent = modalNameInput.value;
-  profileJob.textContent = modalJobInput.value;
+  profileName.textContent = modalInput1.value;
+  profileJob.textContent = modalInput2.value;
+}
+
+function addNewImageCard() {
+  let newCard = {
+    name: modalInput1.value,
+    link: modalInput2.value,
+  };
+  initialCards.unshift(newCard);
+  renderCard(newCard);
 }
