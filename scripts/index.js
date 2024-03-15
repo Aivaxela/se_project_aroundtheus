@@ -84,9 +84,9 @@ function closeModal() {
 }
 
 function openImageModal(image, caption) {
-  imageModal.classList.add("image-modal_opened");
   imageModalImage.src = image;
   imageModalCaption.textContent = caption;
+  imageModal.classList.add("image-modal_opened");
 }
 
 function closeImageModal() {
