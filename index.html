@@ -66,30 +66,59 @@
     </main>
     <footer class="footer page__section">© 2022 Around The U.S.</footer>
 
-    <div class="modal">
+    <div class="modal profile-modal">
       <div class="modal__container">
-        <button class="modal__close"></button>
-        <h2 class="modal__heading">Edit Profile</h2>
-        <form class="modal__form">
+        <button class="modal__close profile-modal__close"></button>
+        <h2 class="modal__heading profile-modal__heading">Edit Profile</h2>
+        <form class="modal__form profile-modal__form">
           <input
             type="text"
-            name="input1"
-            class="modal__input"
-            placeholder=""
+            name="Name"
+            class="modal__input profile-modal__name-input"
+            placeholder="Name"
             required
           />
           <input
             type="text"
-            name="input2"
-            class="modal__input"
-            placeholder=""
+            name="Desc"
+            class="modal__input profile-modal__desc-input"
+            placeholder="Description"
             required
           />
-          <button class="modal__button" type="submit">Save</button>
+          <button class="modal__button profile-modal__button" type="submit">
+            Save
+          </button>
         </form>
       </div>
     </div>
-    <div class="image-modal">
+
+    <div class="modal add-modal">
+      <div class="modal__container">
+        <button class="modal__close add-modal__close"></button>
+        <h2 class="modal__heading add-modal__heading">New place</h2>
+        <form class="modal__form add-modal__form">
+          <input
+            type="text"
+            name="Name"
+            class="modal__input add-modal__title-input"
+            placeholder="Title"
+            required
+          />
+          <input
+            type="text"
+            name="Desc"
+            class="modal__input add-modal__link-input"
+            placeholder="Image link"
+            required
+          />
+          <button class="modal__button add-modal__button" type="submit">
+            Create
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="modal image-modal">
       <div class="image-modal__container">
         <button class="image-modal__close"></button>
         <img class="image-modal__image" src="" alt="image-enlarged" />

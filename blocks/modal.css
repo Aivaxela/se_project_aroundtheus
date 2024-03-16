@@ -1,5 +1,4 @@
 .modal {
-  padding: 0 19px;
   position: fixed;
   top: 0;
   left: 0;
@@ -9,7 +8,7 @@
   color: #000;
   z-index: 999;
   display: flex;
-  visibility: none;
+  visibility: hidden;
   pointer-events: none;
   opacity: 0;
   transition: visibility 0.5s, opacity 0.5s linear;
@@ -17,6 +16,7 @@
 
 .modal__container {
   margin: auto;
+  padding: 0 19px;
   min-width: 430px;
   padding: 34px;
   background-color: white;
