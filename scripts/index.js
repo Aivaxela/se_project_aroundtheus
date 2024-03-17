@@ -103,10 +103,6 @@ function handleCardDelete(evt) {
   deleteImageCard(evt.target);
 }
 
-function handleFormClose(evt) {
-  evt.target.classList.remove("modal_opened");
-}
-
 function handleCardLike(evt) {
   evt.target.classList.toggle("card__like-button_pressed");
 }
@@ -127,8 +123,8 @@ function handleProfileFormSubmit(evt) {
 function handleAddImageFormSubmit(evt) {
   evt.preventDefault();
   addNewImageCard();
-  addModalTitleInput.value = "";
-  addModalLinkInput.value = "";
+  resetAddForm();
+  closeModal(addModal);
 }
 
 function populateProfileForm() {
