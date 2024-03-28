@@ -34,19 +34,13 @@ const closeButtons = document.querySelectorAll(".modal__close");
 
 const profileModal = document.querySelector(".profile-modal");
 const profileModalForm = document.forms["profile-form"];
-const profileModalNameInput = profileModalForm.querySelector(
-  ".profile-modal__name-input"
-);
-const profileModalDescInput = profileModalForm.querySelector(
-  ".profile-modal__desc-input"
-);
+const profileModalNameInput = profileModalForm.querySelector(".profile-modal__name-input");
+const profileModalDescInput = profileModalForm.querySelector(".profile-modal__desc-input");
 const profileModalButton = profileModal.querySelector(".profile-modal__button");
 
 const addModal = document.querySelector(".add-modal");
 const addModalForm = document.forms["add-form"];
-const addModalTitleInput = addModalForm.querySelector(
-  ".add-modal__title-input"
-);
+const addModalTitleInput = addModalForm.querySelector(".add-modal__title-input");
 const addModalLinkInput = addModalForm.querySelector(".add-modal__link-input");
 
 const imageModal = document.querySelector(".image-modal");
