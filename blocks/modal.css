@@ -17,7 +17,7 @@
 .modal__container {
   margin: auto;
   padding: 0 19px;
-  min-width: 430px;
+  width: 430px;
   padding: 34px;
   background-color: white;
   border-radius: 10px;
@@ -42,7 +42,6 @@
 .modal__form {
   display: flex;
   flex-direction: column;
-  gap: 29.74px;
 }
 
 .modal__input {
@@ -58,6 +57,14 @@
   outline: none;
 }
 
+.modal__input-error {
+  padding-bottom: 13px;
+  color: #ff0000;
+  font-family: Inter, Arial, sans-serif;
+  font-weight: 400;
+  font-size: 12px;
+}
+
 .modal__button {
   margin-top: 18.26px;
   padding: 0;
@@ -70,6 +77,13 @@
   font-weight: 400;
   font-size: 18px;
   cursor: pointer;
+}
+
+.modal__button_inactive {
+  opacity: 20%;
+  color: #000;
+  border-style: solid;
+  background-color: #fff;
 }
 
 .modal__button:hover {
@@ -97,7 +111,7 @@
 @media screen and (max-width: 619px) {
   .modal__container {
     padding: 22px;
-    min-width: 238px;
+    width: 282px;
   }
   .modal__heading {
     margin: 0 0 65px;

@@ -12,11 +12,7 @@
   </head>
   <body class="page">
     <header class="header">
-      <img
-        class="header__logo"
-        src="./images/logo.svg"
-        alt="Around the US logo"
-      />
+      <img class="header__logo" src="./images/logo.svg" alt="Around the US logo" />
     </header>
     <main>
       <section class="profile page__section">
@@ -28,37 +24,21 @@
         <div class="profile__info">
           <div class="profile__text">
             <h1 class="profile__title">Jacques Cousteau</h1>
-            <button
-              class="profile__edit-button"
-              type="button"
-              aria-label="edit button"
-            ></button>
+            <button class="profile__edit-button" type="button" aria-label="edit button"></button>
           </div>
           <p class="profile__description">Explorer</p>
         </div>
-        <button
-          class="profile__add-button"
-          type="button"
-          aria-label="add button"
-        ></button>
+        <button class="profile__add-button" type="button" aria-label="add button"></button>
       </section>
       <section class="cards page__section">
         <ul class="cards__list">
           <template id="card"
             ><li class="card">
               <img src="" alt="" class="card__image" />
-              <button
-                class="card__delete-button"
-                type="button"
-                aria-label="delete button"
-              ></button>
+              <button class="card__delete-button" type="button" aria-label="delete button"></button>
               <div class="card__description">
                 <h2 class="card__title"></h2>
-                <button
-                  class="card__like-button"
-                  type="button"
-                  aria-label="like button"
-                ></button>
+                <button class="card__like-button" type="button" aria-label="like button"></button>
               </div></li
           ></template>
         </ul>
@@ -74,20 +54,26 @@
           <input
             type="text"
             name="Name"
+            id="modal__name-input"
             class="modal__input profile-modal__name-input"
             placeholder="Name"
+            minlength="2"
+            maxlength="40"
             required
           />
+          <span class="modal__input-error modal__name-input-error"></span>
           <input
             type="text"
             name="Desc"
+            id="modal__desc-input"
             class="modal__input profile-modal__desc-input"
             placeholder="Description"
+            minlength="2"
+            maxlength="200"
             required
           />
-          <button class="modal__button profile-modal__button" type="submit">
-            Save
-          </button>
+          <span class="modal__input-error modal__desc-input-error"></span>
+          <button class="modal__button profile-modal__button" type="submit">Save</button>
         </form>
       </div>
     </div>
@@ -99,21 +85,23 @@
         <form class="modal__form add-modal__form" id="add-form">
           <input
             type="text"
-            name="Name"
+            name="Title"
+            id="modal__title-input"
             class="modal__input add-modal__title-input"
             placeholder="Title"
             required
           />
+          <span class="modal__input-error modal__title-input-error"></span>
           <input
             type="text"
-            name="Desc"
+            name="Link"
+            id="modal__link-input"
             class="modal__input add-modal__link-input"
             placeholder="Image link"
             required
           />
-          <button class="modal__button add-modal__button" type="submit">
-            Create
-          </button>
+          <span class="modal__input-error modal__link-input-error"></span>
+          <button class="modal__button add-modal__button" type="submit">Create</button>
         </form>
       </div>
     </div>
