@@ -32,6 +32,8 @@ const profileJob = profile.querySelector(".profile__description");
 const cardsList = document.querySelector(".cards__list");
 const closeButtons = document.querySelectorAll(".modal__close");
 
+const modals = document.querySelectorAll(".modal");
+
 const profileModal = document.querySelector(".profile-modal");
 const profileModalForm = document.forms["profile-form"];
 const profileModalNameInput = profileModalForm.querySelector(".profile-modal__name-input");
@@ -74,9 +76,16 @@ profileEditButton.addEventListener("click", () => openModal(profileModal));
 profileAddButton.addEventListener("click", () => openModal(addModal));
 profileModalForm.addEventListener("submit", handleProfileFormSubmit);
 addModalForm.addEventListener("submit", handleAddImageFormSubmit);
-closeButtons.forEach((button) => {
-  const modal = button.closest(".modal");
-  button.addEventListener("click", () => closeModal(modal));
+// closeButtons.forEach((button) => {
+//   const modal = button.closest(".modal");
+//   button.addEventListener("click", () => closeModal(modal));
+// });
+modals.forEach((modal) => {
+  modal.addEventListener("click", (evt) => {
+    const currentModal = modal;
+    const event = evt;
+    closeModal(currentModal, event);
+  });
 });
 
 function openModal(modal) {
@@ -95,8 +104,11 @@ function openModal(modal) {
   });
 }
 
-function closeModal(modal) {
-  modal.classList.remove("modal_opened");
+function closeModal(modal, evt) {
+  console.log(evt.target.classList);
+  if (evt.target.classList.contains("modal") || evt.target.classList.contains("modal__close")) {
+    modal.classList.remove("modal_opened");
+  }
 }
 
 function handleCardImageClick(evt) {
