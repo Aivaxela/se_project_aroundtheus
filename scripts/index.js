@@ -82,14 +82,16 @@ closeButtons.forEach((button) => {
 function openModal(modal) {
   modal.classList.add("modal_opened");
 
-  const formElement = modal.querySelector(".modal__form");
-  const inputList = Array.from(formElement.querySelectorAll(".modal__input"));
-  const buttonElement = formElement.querySelector('.modal__button[type="submit"]');
-  toggleButtonState(inputList, buttonElement);
-
-  inputList.forEach((inputElement) => {
+  const formList = modal.querySelectorAll(".modal__form");
+  formList.forEach((formElement) => {
+    const inputList = Array.from(formElement.querySelectorAll(".modal__input"));
+    const buttonElement = formElement.querySelector('.modal__button[type="submit"]');
     toggleButtonState(inputList, buttonElement);
-    toggleInputValidityErrors(formElement, inputElement);
+
+    inputList.forEach((inputElement) => {
+      toggleButtonState(inputList, buttonElement);
+      toggleInputValidityErrors(formElement, inputElement);
+    });
   });
 }
 
