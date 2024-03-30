@@ -69,8 +69,8 @@ function getCardElement(data) {
   return cardElement;
 }
 
-profileEditButton.addEventListener("click", () => openModal(profileModal));
 profileEditButton.addEventListener("click", populateProfileForm);
+profileEditButton.addEventListener("click", () => openModal(profileModal));
 profileAddButton.addEventListener("click", () => openModal(addModal));
 profileModalForm.addEventListener("submit", handleProfileFormSubmit);
 addModalForm.addEventListener("submit", handleAddImageFormSubmit);
@@ -81,6 +81,16 @@ closeButtons.forEach((button) => {
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
+
+  const formElement = modal.querySelector(".modal__form");
+  const inputList = Array.from(formElement.querySelectorAll(".modal__input"));
+  const buttonElement = formElement.querySelector('.modal__button[type="submit"]');
+  toggleButtonState(inputList, buttonElement);
+
+  inputList.forEach((inputElement) => {
+    toggleButtonState(inputList, buttonElement);
+    toggleInputValidityErrors(formElement, inputElement);
+  });
 }
 
 function closeModal(modal) {
