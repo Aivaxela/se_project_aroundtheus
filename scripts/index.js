@@ -32,6 +32,8 @@ const profileJob = profile.querySelector(".profile__description");
 const cardsList = document.querySelector(".cards__list");
 const closeButtons = document.querySelectorAll(".modal__close");
 
+const modals = document.querySelectorAll(".modal");
+
 const profileModal = document.querySelector(".profile-modal");
 const profileModalForm = document.forms["profile-form"];
 const profileModalNameInput = profileModalForm.querySelector(".profile-modal__name-input");
@@ -74,9 +76,17 @@ profileEditButton.addEventListener("click", () => openModal(profileModal));
 profileAddButton.addEventListener("click", () => openModal(addModal));
 profileModalForm.addEventListener("submit", handleProfileFormSubmit);
 addModalForm.addEventListener("submit", handleAddImageFormSubmit);
-closeButtons.forEach((button) => {
-  const modal = button.closest(".modal");
-  button.addEventListener("click", () => closeModal(modal));
+modals.forEach((modal) => {
+  const currentModal = modal;
+  modal.addEventListener("click", (evt) => {
+    const event = evt;
+    closeModal(currentModal, event);
+  });
+});
+document.addEventListener("keydown", (evt) => {
+  modals.forEach((modal) => {
+    closeModal(modal, evt);
+  });
 });
 
 function openModal(modal) {
@@ -95,8 +105,15 @@ function openModal(modal) {
   });
 }
 
-function closeModal(modal) {
-  modal.classList.remove("modal_opened");
+function closeModal(modal, evt) {
+  if (
+    evt.target.classList.contains("modal") ||
+    evt.target.classList.contains("modal__close") ||
+    (evt.target.classList.contains("modal__button") && evt.target.type === "submit") ||
+    evt.key === "Escape"
+  ) {
+    modal.classList.remove("modal_opened");
+  }
 }
 
 function handleCardImageClick(evt) {
@@ -123,14 +140,14 @@ function openImageModal(image, caption) {
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   updateProfileTextElements();
-  closeModal(profileModal);
+  closeModal(profileModal, evt);
 }
 
 function handleAddImageFormSubmit(evt) {
   evt.preventDefault();
   addNewImageCard();
   resetAddForm();
-  closeModal(addModal);
+  closeModal(addModal, evt);
 }
 
 function populateProfileForm() {
@@ -158,65 +175,4 @@ function addNewImageCard() {
 
 function deleteImageCard(card) {
   card.closest(".card").remove();
-}
-
-enableValidation();
-
-function enableValidation() {
-  const formList = Array.from(document.forms);
-  formList.forEach((formElement) => {
-    formElement.addEventListener("submit", function (evt) {
-      evt.preventDefault();
-    });
-    setEventListeners(formElement);
-  });
-}
-
-function setEventListeners(formElement) {
-  const inputList = Array.from(formElement.querySelectorAll(".modal__input"));
-  const buttonElement = formElement.querySelector('.modal__button[type="submit"]');
-  toggleButtonState(inputList, buttonElement);
-
-  inputList.forEach((inputElement) => {
-    inputElement.addEventListener("input", function () {
-      toggleButtonState(inputList, buttonElement);
-      toggleInputValidityErrors(formElement, inputElement);
-    });
-  });
-}
-
-function toggleButtonState(inputList, buttonElement) {
-  if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add("modal__button_inactive");
-  } else {
-    buttonElement.classList.remove("modal__button_inactive");
-  }
-}
-
-function hasInvalidInput(inputList) {
-  return inputList.some((inputElement) => {
-    return !inputElement.validity.valid;
-  });
-}
-
-function toggleInputValidityErrors(formElement, inputElement) {
-  if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
-  } else {
-    hideInputError(formElement, inputElement);
-  }
-}
-
-function showInputError(formElement, inputElement, errorMessage) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  errorElement.textContent = errorMessage;
-  errorElement.classList.add("form__input-error_active");
-  inputElement.classList.add("form__input_type_error");
-}
-
-function hideInputError(formElement, inputElement) {
-  const errorElement = formElement.querySelector(`.${inputElement.id}-error`);
-  errorElement.textContent = "";
-  errorElement.classList.remove("form__input-error_active");
-  inputElement.classList.remove("form__input_type_error");
 }

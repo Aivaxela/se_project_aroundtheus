@@ -12,6 +12,7 @@
   pointer-events: none;
   opacity: 0;
   transition: visibility 0.5s, opacity 0.5s linear;
+  cursor: pointer;
 }
 
 .modal__container {
@@ -22,6 +23,7 @@
   background-color: white;
   border-radius: 10px;
   position: relative;
+  cursor: default;
 }
 
 .modal_opened {
@@ -84,6 +86,7 @@
   color: #000;
   border-style: solid;
   background-color: #fff;
+  pointer-events: none;
 }
 
 .modal__button:hover {
