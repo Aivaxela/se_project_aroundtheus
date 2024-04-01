@@ -54,25 +54,25 @@
           <input
             type="text"
             name="Name"
-            id="modal__name-input"
+            id="modal-name"
             class="modal__input profile-modal__name-input"
             placeholder="Name"
             minlength="2"
             maxlength="40"
             required
           />
-          <span class="modal__input-error modal__name-input-error"></span>
+          <span class="modal__input-error" id="modal-name-error"></span>
           <input
             type="text"
             name="Desc"
-            id="modal__desc-input"
+            id="modal-desc"
             class="modal__input profile-modal__desc-input"
             placeholder="Description"
             minlength="2"
             maxlength="200"
             required
           />
-          <span class="modal__input-error modal__desc-input-error"></span>
+          <span class="modal__input-error" id="modal-desc-error"></span>
           <button class="modal__button profile-modal__button" type="submit">Save</button>
         </form>
       </div>
@@ -86,23 +86,23 @@
           <input
             type="text"
             name="Title"
-            id="modal__title-input"
+            id="modal-title"
             class="modal__input add-modal__title-input"
             placeholder="Title"
             minlength="1"
             maxlength="30"
             required
           />
-          <span class="modal__input-error modal__title-input-error"></span>
+          <span class="modal__input-error" id="modal-title-error"></span>
           <input
             type="url"
             name="Link"
-            id="modal__link-input"
+            id="modal-link"
             class="modal__input add-modal__link-input"
             placeholder="Image link"
             required
           />
-          <span class="modal__input-error modal__link-input-error"></span>
+          <span class="modal__input-error" id="modal-link-error"></span>
           <button class="modal__button add-modal__button" type="submit">Create</button>
         </form>
       </div>

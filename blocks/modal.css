@@ -118,6 +118,7 @@
   }
   .modal__heading {
     margin: 0 0 65px;
+    font-size: 18px;
   }
 
   .modal__close {
