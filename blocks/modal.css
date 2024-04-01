@@ -114,11 +114,12 @@
 @media screen and (max-width: 619px) {
   .modal__container {
     padding: 22px;
-    width: 282px;
+    width: 238px;
   }
   .modal__heading {
     margin: 0 0 65px;
     font-size: 18px;
+    line-height: 21.78px;
   }
 
   .modal__close {

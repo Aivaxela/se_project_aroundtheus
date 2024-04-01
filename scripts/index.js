@@ -30,25 +30,23 @@ const profileAddButton = profile.querySelector(".profile__add-button");
 const profileName = profile.querySelector(".profile__title");
 const profileJob = profile.querySelector(".profile__description");
 const cardsList = document.querySelector(".cards__list");
-const closeButtons = document.querySelectorAll(".modal__close");
-
 const modals = document.querySelectorAll(".modal");
-
 const profileModal = document.querySelector(".profile-modal");
 const profileModalForm = document.forms["profile-form"];
 const profileModalNameInput = profileModalForm.querySelector(".profile-modal__name-input");
 const profileModalDescInput = profileModalForm.querySelector(".profile-modal__desc-input");
-const profileModalButton = profileModal.querySelector(".profile-modal__button");
-
 const addModal = document.querySelector(".add-modal");
 const addModalForm = document.forms["add-form"];
 const addModalTitleInput = addModalForm.querySelector(".add-modal__title-input");
 const addModalLinkInput = addModalForm.querySelector(".add-modal__link-input");
-
 const imageModal = document.querySelector(".image-modal");
 const imageModalImage = imageModal.querySelector(".image-modal__image");
 const imageModalCaption = imageModal.querySelector(".image-modal__caption");
-let escapeKeyListener;
+const closeConditions = {
+  modal: "modal",
+  modalCloseButton: "modal__close",
+  modalSubmitButton: "modal__button",
+};
 
 initialCards.forEach(renderCard);
 
@@ -80,35 +78,34 @@ modals.forEach((modal) => {
   const currentModal = modal;
   modal.addEventListener("click", (evt) => {
     const event = evt;
-    handleModalCloseEvents(currentModal, event);
+    handleModalClose(currentModal, event);
   });
 });
 
 function openModal(modal) {
   modal.classList.add("modal_opened");
+  document.addEventListener("keydown", handleEscape);
 }
 
 function closeModal(modal) {
   modal.classList.remove("modal_opened");
+  document.removeEventListener("keydown", handleEscape);
 }
 
-function handleModalOpenEvents(modal) {
-  escapeKeyListener = (evt) => {
-    handleModalCloseEvents(modal, evt);
-  };
-  document.addEventListener("keydown", escapeKeyListener);
-  openModal(modal);
+function handleEscape(evt) {
+  if (evt.key === "Escape") {
+    const openedModal = document.querySelector(".modal_opened");
+    closeModal(openedModal);
+  }
 }
 
-function handleModalCloseEvents(modal, evt) {
-  if (
-    evt.target.classList.contains("modal") ||
-    evt.target.classList.contains("modal__close") ||
-    (evt.target.classList.contains("modal__button") && evt.target.type === "submit") ||
-    evt.key === "Escape"
-  ) {
+function handleModalClose(modal, evt) {
+  const eventClasses = [...evt.target.classList];
+  const closeConditionMet = eventClasses.some((className) => {
+    return Object.values(closeConditions).includes(className);
+  });
+  if (closeConditionMet) {
     closeModal(modal);
-    document.removeEventListener("keydown", escapeKeyListener);
   }
 }
 
@@ -130,20 +127,20 @@ function openImageModal(image, caption) {
   imageModalImage.src = image;
   imageModalImage.alt = caption;
   imageModalCaption.textContent = caption;
-  handleModalOpenEvents(imageModal);
+  openModal(imageModal);
 }
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   updateProfileTextElements();
-  handleModalCloseEvents(profileModal, evt);
+  handleModalClose(profileModal, evt);
 }
 
 function handleAddImageFormSubmit(evt) {
   evt.preventDefault();
   addNewImageCard();
   evt.target.reset();
-  handleModalCloseEvents(addModal, evt);
+  handleModalClose(addModal, evt);
 }
 
 function openProfileForm() {
@@ -156,17 +153,14 @@ function openProfileForm() {
     checkInputValidity(profileModal, input);
   });
   toggleButtonState(inputElements, submitButton, config.inactiveButtonClass);
-  handleModalOpenEvents(profileModal);
+  openModal(profileModal);
 }
 
 function openAddForm() {
   const inputElements = [...addModal.querySelectorAll(".modal__input")];
   const submitButton = addModal.querySelector('.modal__button[type="submit"]');
-  inputElements.forEach((input) => {
-    checkInputValidity(addModal, input);
-  });
   toggleButtonState(inputElements, submitButton, config);
-  handleModalOpenEvents(addModal);
+  openModal(addModal);
 }
 
 function updateProfileTextElements() {
