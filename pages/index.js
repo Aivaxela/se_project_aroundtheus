@@ -1,3 +1,5 @@
+import Card from "../components/Card.js";
+
 const initialCards = [
   {
     name: "Gaming",
@@ -24,12 +26,20 @@ const initialCards = [
     link: "https://images.unsplash.com/photo-1419242902214-272b3f66ee7a?q=80&w=3313&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
   },
 ];
+
+//this probably needs moved into Card.js//
+const cardsList = document.querySelector(".cards__list");
+initialCards.forEach((card) => {
+  const newCard = new Card(card, "#card-template", handleCardImageClick);
+  cardsList.prepend(newCard.getView());
+  newCard.getView();
+});
+
 const profile = document.querySelector(".profile");
 const profileEditButton = profile.querySelector(".profile__edit-button");
 const profileAddButton = profile.querySelector(".profile__add-button");
 const profileName = profile.querySelector(".profile__title");
 const profileJob = profile.querySelector(".profile__description");
-const cardsList = document.querySelector(".cards__list");
 const modals = document.querySelectorAll(".modal");
 const profileModal = document.querySelector(".profile-modal");
 const profileModalForm = document.forms["profile-form"];
@@ -48,26 +58,20 @@ const closeConditions = {
   modalSubmitButton: "modal__button",
 };
 
-initialCards.forEach(renderCard);
-
-function renderCard(card) {
-  cardsList.prepend(getCardElement(card));
-}
-
 function getCardElement(data) {
-  const cardTemplate = document.querySelector("#card").content;
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-  const cardTitle = cardElement.querySelector(".card__title");
-  const cardImage = cardElement.querySelector(".card__image");
-  const cardDeleteIcon = cardElement.querySelector(".card__delete-button");
-  const cardLikeIcon = cardElement.querySelector(".card__like-button");
-  cardImage.addEventListener("click", handleCardImageClick);
-  cardDeleteIcon.addEventListener("click", handleCardDelete);
-  cardLikeIcon.addEventListener("click", handleCardLike);
-  cardTitle.textContent = data.name;
-  cardImage.alt = data.name;
-  cardImage.src = data.link;
-  return cardElement;
+  // const cardTemplate = document.querySelector("#card-template").content;
+  // const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  // const cardTitle = cardElement.querySelector(".card__title");
+  // const cardImage = cardElement.querySelector(".card__image");
+  // const cardDeleteIcon = cardElement.querySelector(".card__delete-button");
+  // const cardLikeIcon = cardElement.querySelector(".card__like-button");
+  // cardImage.addEventListener("click", handleCardImageClick);
+  // cardDeleteIcon.addEventListener("click", handleCardDelete);
+  // cardLikeIcon.addEventListener("click", handleCardLike);
+  // cardTitle.textContent = data.name;
+  // cardImage.alt = data.name;
+  // cardImage.src = data.link;
+  // return cardElement;
 }
 
 profileEditButton.addEventListener("click", openProfileForm);
