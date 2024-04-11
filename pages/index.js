@@ -1,4 +1,5 @@
 import Card from "../components/Card.js";
+import FormValidator from "../components/FormValidator.js";
 
 const initialCards = [
   {
@@ -27,12 +28,10 @@ const initialCards = [
   },
 ];
 
-//this probably needs moved into Card.js//
 const cardsList = document.querySelector(".cards__list");
 initialCards.forEach((card) => {
   const newCard = new Card(card, "#card-template", handleCardImageClick);
   cardsList.prepend(newCard.getView());
-  newCard.getView();
 });
 
 const profile = document.querySelector(".profile");
@@ -57,22 +56,14 @@ const closeConditions = {
   modalCloseButton: "modal__close",
   modalSubmitButton: "modal__button",
 };
-
-function getCardElement(data) {
-  // const cardTemplate = document.querySelector("#card-template").content;
-  // const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-  // const cardTitle = cardElement.querySelector(".card__title");
-  // const cardImage = cardElement.querySelector(".card__image");
-  // const cardDeleteIcon = cardElement.querySelector(".card__delete-button");
-  // const cardLikeIcon = cardElement.querySelector(".card__like-button");
-  // cardImage.addEventListener("click", handleCardImageClick);
-  // cardDeleteIcon.addEventListener("click", handleCardDelete);
-  // cardLikeIcon.addEventListener("click", handleCardLike);
-  // cardTitle.textContent = data.name;
-  // cardImage.alt = data.name;
-  // cardImage.src = data.link;
-  // return cardElement;
-}
+const validatorConfig = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_inactive",
+};
+const profileFormValidator = new FormValidator(validatorConfig, profileModalForm);
+const addFormValidator = new FormValidator(validatorConfig, addModalForm);
 
 profileEditButton.addEventListener("click", openProfileForm);
 profileAddButton.addEventListener("click", openAddForm);
@@ -113,23 +104,13 @@ function handleModalClose(modal, evt) {
   }
 }
 
-function handleCardImageClick(evt) {
-  const image = evt.target.src;
-  const caption = evt.target.alt;
-  openImageModal(image, caption);
+function handleCardImageClick(cardName, cardLink) {
+  openImageModal(cardName, cardLink);
 }
 
-function handleCardDelete(evt) {
-  deleteImageCard(evt.target);
-}
-
-function handleCardLike(evt) {
-  evt.target.classList.toggle("card__like-button_pressed");
-}
-
-function openImageModal(image, caption) {
-  imageModalImage.src = image;
+function openImageModal(caption, image) {
   imageModalImage.alt = caption;
+  imageModalImage.src = image;
   imageModalCaption.textContent = caption;
   openModal(imageModal);
 }
@@ -145,26 +126,21 @@ function handleAddImageFormSubmit(evt) {
   addNewImageCard();
   evt.target.reset();
   handleModalClose(addModal, evt);
+  addFormValidator.toggleButton();
 }
 
 function openProfileForm() {
   profileModalNameInput.value = profileName.textContent;
   profileModalDescInput.value = profileJob.textContent;
-
-  const inputElements = [...profileModal.querySelectorAll(".modal__input")];
-  const submitButton = profileModal.querySelector('.modal__button[type="submit"]');
-  inputElements.forEach((input) => {
-    checkInputValidity(profileModal, input);
-  });
-  toggleButtonState(inputElements, submitButton, config.inactiveButtonClass);
   openModal(profileModal);
+  profileFormValidator.resetValidation();
+  profileFormValidator.toggleButton();
+  profileFormValidator.enableValidation();
 }
 
 function openAddForm() {
-  const inputElements = [...addModal.querySelectorAll(".modal__input")];
-  const submitButton = addModal.querySelector('.modal__button[type="submit"]');
-  toggleButtonState(inputElements, submitButton, config);
   openModal(addModal);
+  addFormValidator.enableValidation();
 }
 
 function updateProfileTextElements() {
@@ -173,13 +149,10 @@ function updateProfileTextElements() {
 }
 
 function addNewImageCard() {
-  const newCard = {
-    name: addModalTitleInput.value,
-    link: addModalLinkInput.value,
-  };
-  renderCard(newCard);
-}
-
-function deleteImageCard(card) {
-  card.closest(".card").remove();
+  const newCard = new Card(
+    { name: addModalTitleInput.value, link: addModalLinkInput.value },
+    "#card-template",
+    handleCardImageClick
+  );
+  cardsList.prepend(newCard.getView());
 }

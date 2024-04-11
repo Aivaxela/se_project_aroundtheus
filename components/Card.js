@@ -7,6 +7,7 @@ export default class Card {
   }
 
   getView() {
+    if (this._cardElement) return this._cardElement;
     this._cardElement = document
       .querySelector(this._cardSelector)
       .content.querySelector(".card")
@@ -26,7 +27,21 @@ export default class Card {
 
   _setEventListeners() {
     this._cardImage.addEventListener("click", () => {
-      this._handleCardImageClick();
+      this._handleCardImageClick(this._name, this._link);
     });
+    this._cardDeleteIcon.addEventListener("click", () => {
+      this._handleCardDelete();
+    });
+    this._cardLikeIcon.addEventListener("click", () => {
+      this._handleCardLike();
+    });
+  }
+
+  _handleCardDelete() {
+    this._cardElement.remove();
+  }
+
+  _handleCardLike() {
+    this._cardLikeIcon.classList.toggle("card__like-button_pressed");
   }
 }
