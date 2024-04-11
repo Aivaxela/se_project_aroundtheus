@@ -29,9 +29,13 @@ const initialCards = [
 ];
 
 const cardsList = document.querySelector(".cards__list");
+const createCard = (cardData) => {
+  const card = new Card(cardData, "#card-template", handleCardImageClick);
+  return cardsList.prepend(card.getView());
+};
+
 initialCards.forEach((card) => {
-  const newCard = new Card(card, "#card-template", handleCardImageClick);
-  cardsList.prepend(newCard.getView());
+  createCard(card);
 });
 
 const profile = document.querySelector(".profile");
@@ -64,6 +68,8 @@ const validatorConfig = {
 };
 const profileFormValidator = new FormValidator(validatorConfig, profileModalForm);
 const addFormValidator = new FormValidator(validatorConfig, addModalForm);
+profileFormValidator.enableValidation();
+addFormValidator.enableValidation();
 
 profileEditButton.addEventListener("click", openProfileForm);
 profileAddButton.addEventListener("click", openAddForm);
@@ -135,12 +141,10 @@ function openProfileForm() {
   openModal(profileModal);
   profileFormValidator.resetValidation();
   profileFormValidator.toggleButtonState();
-  profileFormValidator.enableValidation();
 }
 
 function openAddForm() {
   openModal(addModal);
-  addFormValidator.enableValidation();
 }
 
 function updateProfileTextElements() {

@@ -31,9 +31,7 @@ export default class Card {
     this._cardDeleteIcon.addEventListener("click", () => {
       this._handleCardDelete();
     });
-    this._cardLikeIcon.addEventListener("click", () => {
-      this._handleCardLike();
-    });
+    this._cardLikeIcon.addEventListener("click", this._handleCardLike);
   }
 
   _handleCardDelete() {
@@ -42,6 +40,6 @@ export default class Card {
   }
 
   _handleCardLike() {
-    this._cardLikeIcon.classList.toggle("card__like-button_pressed");
+    this.classList.toggle("card__like-button_pressed");
   }
 }
