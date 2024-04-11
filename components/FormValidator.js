@@ -11,21 +11,27 @@ export default class FormValidator {
     this._setEventListeners();
   }
 
-  toggleButton() {
-    this._toggleButtonState(this._formInputs, this._submitButton);
-  }
-
   resetValidation() {
     this._formInputs.forEach((inputElement) => {
       this._checkInputValidity(inputElement);
     });
   }
 
+  toggleButtonState() {
+    if (this._hasInvalidInputs(this._formInputs)) {
+      this._submitButton.classList.add(this._config.inactiveButtonClass);
+      this._submitButton.disabled = true;
+      return;
+    }
+    this._submitButton.classList.remove(this._config.inactiveButtonClass);
+    this._submitButton.disabled = false;
+  }
+
   _setEventListeners() {
     this._formInputs.forEach((inputElement) => {
       inputElement.addEventListener("input", () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(this._formInputs, this._submitButton);
+        this.toggleButtonState();
       });
     });
   }
@@ -41,25 +47,18 @@ export default class FormValidator {
   _showInputError(inputElement) {
     const errorMessageElement = this._formElement.querySelector(`#${inputElement.id}-error`);
     errorMessageElement.textContent = inputElement.validationMessage;
+    console.log(inputElement);
+    inputElement.classList.add("modal__input-error");
   }
 
   _hideInputError(inputElement) {
     const errorMessageElement = this._formElement.querySelector(`#${inputElement.id}-error`);
     errorMessageElement.textContent = "";
+    inputElement.classList.remove("modal__input-error");
   }
 
-  _toggleButtonState(formInputs, submitButton) {
-    if (this._hasInvalidInputs(formInputs)) {
-      submitButton.classList.add(this._inactiveButtonClass);
-      submitButton.disabled = true;
-      return;
-    }
-    submitButton.classList.remove(this._inactiveButtonClass);
-    submitButton.disabled = false;
-  }
-
-  _hasInvalidInputs(formInputs) {
-    return formInputs.some((inputElement) => {
+  _hasInvalidInputs() {
+    return this._formInputs.some((inputElement) => {
       return !inputElement.validity.valid;
     });
   }

@@ -7,7 +7,6 @@ export default class Card {
   }
 
   getView() {
-    if (this._cardElement) return this._cardElement;
     this._cardElement = document
       .querySelector(this._cardSelector)
       .content.querySelector(".card")
@@ -39,6 +38,7 @@ export default class Card {
 
   _handleCardDelete() {
     this._cardElement.remove();
+    this._cardElement = null;
   }
 
   _handleCardLike() {

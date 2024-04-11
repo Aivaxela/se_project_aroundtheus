@@ -126,7 +126,7 @@ function handleAddImageFormSubmit(evt) {
   addNewImageCard();
   evt.target.reset();
   handleModalClose(addModal, evt);
-  addFormValidator.toggleButton();
+  addFormValidator.toggleButtonState();
 }
 
 function openProfileForm() {
@@ -134,7 +134,7 @@ function openProfileForm() {
   profileModalDescInput.value = profileJob.textContent;
   openModal(profileModal);
   profileFormValidator.resetValidation();
-  profileFormValidator.toggleButton();
+  profileFormValidator.toggleButtonState();
   profileFormValidator.enableValidation();
 }
 
