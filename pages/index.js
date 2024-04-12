@@ -28,14 +28,16 @@ const initialCards = [
   },
 ];
 
-const cardsList = document.querySelector(".cards__list");
 const createCard = (cardData) => {
   const card = new Card(cardData, "#card-template", handleCardImageClick);
-  return cardsList.prepend(card.getView());
+  return card.getView();
 };
 
-initialCards.forEach((card) => {
-  createCard(card);
+const cardsList = document.querySelector(".cards__list");
+initialCards.forEach((cardData) => {
+  const cardElement = createCard(cardData);
+  cardsList.prepend(cardElement);
+  createCard(cardElement);
 });
 
 const profile = document.querySelector(".profile");
@@ -65,6 +67,7 @@ const validatorConfig = {
   inputSelector: ".modal__input",
   submitButtonSelector: ".modal__button",
   inactiveButtonClass: "modal__button_inactive",
+  errorClass: "modal__input-error",
 };
 const profileFormValidator = new FormValidator(validatorConfig, profileModalForm);
 const addFormValidator = new FormValidator(validatorConfig, addModalForm);
@@ -153,10 +156,6 @@ function updateProfileTextElements() {
 }
 
 function addNewImageCard() {
-  const newCard = new Card(
-    { name: addModalTitleInput.value, link: addModalLinkInput.value },
-    "#card-template",
-    handleCardImageClick
-  );
-  cardsList.prepend(newCard.getView());
+  const newCard = createCard({ name: addModalTitleInput.value, link: addModalLinkInput.value });
+  cardsList.prepend(newCard);
 }

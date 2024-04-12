@@ -4,7 +4,6 @@ export default class FormValidator {
     this._formElement = formElement;
     this._formInputs = [...this._formElement.querySelectorAll(config.inputSelector)];
     this._submitButton = this._formElement.querySelector(this._config.submitButtonSelector);
-    this._inactiveButtonClass = this._config.inactiveButtonClass;
   }
 
   enableValidation() {
@@ -48,13 +47,13 @@ export default class FormValidator {
     const errorMessageElement = this._formElement.querySelector(`#${inputElement.id}-error`);
     errorMessageElement.textContent = inputElement.validationMessage;
     console.log(inputElement);
-    inputElement.classList.add("modal__input-error");
+    inputElement.classList.add(this._config.errorClass);
   }
 
   _hideInputError(inputElement) {
     const errorMessageElement = this._formElement.querySelector(`#${inputElement.id}-error`);
     errorMessageElement.textContent = "";
-    inputElement.classList.remove("modal__input-error");
+    inputElement.classList.remove(this._config.errorClass);
   }
 
   _hasInvalidInputs() {
