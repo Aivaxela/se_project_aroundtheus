@@ -7,18 +7,17 @@
     <meta name="keywords" content="united states, usa, pictures" />
     <meta name="author" content="Riley Marcum" />
     <title>Around the U.S.</title>
-    <link rel="stylesheet" href="./pages/index.css" />
     <link rel="favicon" href="./favicon.ico" />
   </head>
   <body class="page">
     <header class="header">
-      <img class="header__logo" src="./images/logo.svg" alt="Around the US logo" />
+      <img class="header__logo" src="<%=require('./images/logo.svg')%>" alt="Around the US logo" />
     </header>
     <main>
       <section class="profile page__section">
         <img
           class="profile__image"
-          src="./images/jacques-cousteau.jpg"
+          src="<%=require('./images/jacques-cousteau.jpg')%>"
           alt="Avatar: jacques cousteau"
         />
         <div class="profile__info">
@@ -121,7 +120,5 @@
         <p class="image-modal__caption"></p>
       </div>
     </div>
-
-    <script src="./pages/index.js" type="module" defer></script>
   </body>
 </html>
