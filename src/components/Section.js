@@ -16,13 +16,4 @@ export default class Section {
   addItem(element) {
     this.placeItem(element);
   }
-
-  _addNewImageCard() {
-    const newCard = new Card(
-      { name: addModalTitleInput.value, link: addModalLinkInput.value },
-      "#card-template",
-      handleCardImageClick
-    );
-    this._container.prepend(newCard);
-  }
 }
