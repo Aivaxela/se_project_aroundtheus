@@ -6,7 +6,7 @@ export default class Card {
     this._handleCardImageClick = handleCardImageClick;
   }
 
-  getView() {
+  generateCardElement() {
     this._cardElement = document
       .querySelector(this._cardSelector)
       .content.querySelector(".card")
