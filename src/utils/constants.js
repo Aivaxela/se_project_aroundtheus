@@ -28,7 +28,6 @@ export const initialCards = [
 export const closeConditions = {
   modal: "modal",
   modalCloseButton: "modal__close",
-  modalSubmitButton: "modal__button",
 };
 
 export const validatorConfig = {
