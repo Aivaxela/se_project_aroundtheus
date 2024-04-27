@@ -130,18 +130,20 @@ function handleAddImageFormSubmit(evt) {
     handleCardImageClick
   );
   cardsList.addItem(card.generateCardElement());
-
-  handleModalClose(addModal, evt);
-  addFormValidator.toggleButtonState();
   evt.target.reset();
+  addFormValidator.toggleButtonState();
+  PopupWithForm.close();
 }
 
 function openProfileForm() {
-  profileModalNameInput.value = profileName.textContent;
-  profileModalDescInput.value = profileJob.textContent;
-  openModal(profileModal);
-  profileFormValidator.resetValidation();
-  profileFormValidator.toggleButtonState();
+  const profileForm = new PopupWithForm(profileModal, handleFormSubmit);
+  profileForm.open();
+
+  // profileModalNameInput.value = profileName.textContent;
+  // profileModalDescInput.value = profileJob.textContent;
+  // openModal(profileModal);
+  // profileFormValidator.resetValidation();
+  // profileFormValidator.toggleButtonState();
 }
 
 function openAddForm() {

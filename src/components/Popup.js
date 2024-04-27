@@ -3,11 +3,15 @@ export default class Popup {
     this._popupElement = document.querySelector(popupSelector);
   }
 
-  open() {}
+  open() {
+    this._popupElement.classList.add("modal_opened");
+  }
 
-  close() {}
+  close() {
+    this._popupElement.classList.remove("modal_opened");
+  }
 
   _listenForEsc() {}
 
-  _setEventListeners() {}
+  setEventListeners() {}
 }
