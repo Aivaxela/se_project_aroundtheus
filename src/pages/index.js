@@ -1,3 +1,4 @@
+//import classes and objects
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
@@ -11,26 +12,15 @@ import {
   validatorConfig,
   cardsListSection,
 } from "../utils/constants.js";
+//
 
-const cardsList = new Section(
-  {
-    data: initialCards,
-    renderer: (item) => {
-      const card = new Card(item, "#card-template", handleCardImageClick);
-      cardsList.placeItem(card.generateCardElement());
-    },
-  },
-  cardsListSection
-);
-
-cardsList.renderItems();
-
+//select elements
+const modals = document.querySelectorAll(".modal");
 const profile = document.querySelector(".profile");
 const profileEditButton = profile.querySelector(".profile__edit-button");
 const profileAddButton = profile.querySelector(".profile__add-button");
 const profileName = profile.querySelector(".profile__title");
 const profileJob = profile.querySelector(".profile__description");
-const modals = document.querySelectorAll(".modal");
 const profileModal = document.querySelector(".profile-modal");
 const profileModalForm = document.forms["profile-form"];
 const profileModalNameInput = profileModalForm.querySelector(".profile-modal__name-input");
@@ -42,12 +32,30 @@ const addModalLinkInput = addModalForm.querySelector(".add-modal__link-input");
 const imageModal = document.querySelector(".image-modal");
 const imageModalImage = imageModal.querySelector(".image-modal__image");
 const imageModalCaption = imageModal.querySelector(".image-modal__caption");
+//
 
+//render intial cards
+const cardsList = new Section(
+  {
+    data: initialCards,
+    renderer: (item) => {
+      const card = new Card(item, "#card-template", handleCardImageClick);
+      cardsList.placeItem(card.generateCardElement());
+    },
+  },
+  cardsListSection
+);
+cardsList.renderItems();
+//
+
+//instantiate classes
 const profileFormValidator = new FormValidator(validatorConfig, profileModalForm);
 const addFormValidator = new FormValidator(validatorConfig, addModalForm);
 profileFormValidator.enableValidation();
 addFormValidator.enableValidation();
+//
 
+//add event listeners
 profileEditButton.addEventListener("click", openProfileForm);
 profileAddButton.addEventListener("click", openAddForm);
 profileModalForm.addEventListener("submit", handleProfileFormSubmit);
@@ -59,6 +67,7 @@ modals.forEach((modal) => {
     handleModalClose(currentModal, event);
   });
 });
+//
 
 /////////////////////////////////////////
 
@@ -113,6 +122,8 @@ function handleProfileFormSubmit(evt) {
 
 function handleAddImageFormSubmit(evt) {
   evt.preventDefault();
+  cardsList.addItem;
+
   const card = new Card(
     { name: addModalTitleInput.value, link: addModalLinkInput.value },
     "#card-template",
