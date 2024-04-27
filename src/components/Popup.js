@@ -1,5 +1,5 @@
 export default class Popup {
-  constructor({ popupSelector }) {
+  constructor(popupSelector) {
     this._popupElement = document.querySelector(popupSelector);
   }
 
@@ -13,5 +13,5 @@ export default class Popup {
 
   _listenForEsc() {}
 
-  setEventListeners() {}
+  _setEventListeners() {}
 }

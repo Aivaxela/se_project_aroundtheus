@@ -1,5 +1,3 @@
-import Card from "./Card.js";
-
 export default class Section {
   constructor({ data, renderer }, containerSelector) {
     this._renderedItems = data;
@@ -12,10 +10,6 @@ export default class Section {
   }
 
   addItem(element) {
-    this.placeItem(element);
-  }
-
-  placeItem(element) {
     this._container.prepend(element);
   }
 }
