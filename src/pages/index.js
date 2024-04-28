@@ -29,31 +29,22 @@ addFormValidator.enableValidation();
 const profilePopup = new PopupWithForm("#profile-modal", (inputFieldValues, evt) => {
   evt.preventDefault();
   userInfo.setUserInfo(inputFieldValues);
-  profileName.textContent = userInfo.getUserInfo().name;
-  profileJob.textContent = userInfo.getUserInfo().title;
 });
 
 const addImagePopup = new PopupWithForm("#add-modal", (inputFieldValues, evt) => {
   evt.preventDefault();
   const { Link: link, Title: title } = inputFieldValues;
-  const newCard = new Card({ name: title, link: link }, "#card-template", () => {
-    imagePopup.open(newCard);
-    imagePopup.setEventListeners();
-  });
-  cardsList.addItem(newCard.generateCardElement());
+  createCard({ name: title, link: link });
 });
 
 const imagePopup = new PopupWithImage("#image-modal");
+imagePopup.setEventListeners();
 
 const cardsList = new Section(
   {
     data: initialCards,
     renderer: (item) => {
-      const card = new Card(item, "#card-template", () => {
-        imagePopup.open(card);
-        imagePopup.setEventListeners();
-      });
-      cardsList.addItem(card.generateCardElement());
+      createCard(item);
     },
   },
   cardsListSection
@@ -68,8 +59,9 @@ profileAddButton.addEventListener("click", openAddForm);
 function openProfileForm() {
   profilePopup.open();
   profilePopup.setEventListeners();
-  profileModalNameInput.value = userInfo.getUserInfo().name;
-  profileModalDescInput.value = userInfo.getUserInfo().title;
+  const { name, title } = userInfo.getUserInfo();
+  profileModalNameInput.value = name;
+  profileModalDescInput.value = title;
   profileFormValidator.resetValidation();
   profileFormValidator.toggleButtonState();
 }
@@ -77,4 +69,11 @@ function openProfileForm() {
 function openAddForm() {
   addImagePopup.open();
   addImagePopup.setEventListeners();
+}
+
+function createCard(card) {
+  const newCard = new Card(card, "#card-template", () => {
+    imagePopup.open(newCard);
+  });
+  cardsList.addItem(newCard.generateCardElement());
 }
