@@ -32,3 +32,7 @@ The primary skills excercised to make this page responsive are a combination of 
 **Video review**
 
 - [Video review of the project](https://drive.google.com/file/d/1O5q8L90ArLYaTEgddT5xfjrGWsAaAY_V/view?usp=sharing)
+
+**Webpack**
+
+Introduced webpack
