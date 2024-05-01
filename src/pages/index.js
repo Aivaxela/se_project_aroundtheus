@@ -26,16 +26,26 @@ const addFormValidator = new FormValidator(validatorConfig, addModalForm);
 profileFormValidator.enableValidation();
 addFormValidator.enableValidation();
 
-const profilePopup = new PopupWithForm("#profile-modal", (inputFieldValues, evt) => {
-  evt.preventDefault();
-  userInfo.setUserInfo(inputFieldValues);
-});
+const profilePopup = new PopupWithForm(
+  "#profile-modal",
+  (inputFieldValues, evt) => {
+    evt.preventDefault();
+    userInfo.setUserInfo(inputFieldValues);
+  },
+  profileFormValidator
+);
+profilePopup.setEventListeners();
 
-const addImagePopup = new PopupWithForm("#add-modal", (inputFieldValues, evt) => {
-  evt.preventDefault();
-  const { Link: link, Title: title } = inputFieldValues;
-  createCard({ name: title, link: link });
-});
+const addImagePopup = new PopupWithForm(
+  "#add-modal",
+  (inputFieldValues, evt) => {
+    evt.preventDefault();
+    const { Link: link, Title: title } = inputFieldValues;
+    createCard({ name: title, link: link });
+  },
+  addFormValidator
+);
+addImagePopup.setEventListeners();
 
 const imagePopup = new PopupWithImage("#image-modal");
 imagePopup.setEventListeners();
@@ -58,7 +68,6 @@ profileAddButton.addEventListener("click", openAddForm);
 //event listener callbacks
 function openProfileForm() {
   profilePopup.open();
-  profilePopup.setEventListeners();
   const { name, title } = userInfo.getUserInfo();
   profileModalNameInput.value = name;
   profileModalDescInput.value = title;
@@ -68,7 +77,6 @@ function openProfileForm() {
 
 function openAddForm() {
   addImagePopup.open();
-  addImagePopup.setEventListeners();
 }
 
 function createCard(card) {
