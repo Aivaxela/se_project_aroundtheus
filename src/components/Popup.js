@@ -20,7 +20,6 @@ export default class Popup {
   }
 
   _handleOutsideClickClose = (evt) => {
-    console.log("click detected");
     const eventClasses = [...evt.target.classList];
     const closeConditionMet = eventClasses.some((className) => {
       return Object.values(closeConditions).includes(className);

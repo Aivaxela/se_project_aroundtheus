@@ -2,6 +2,7 @@
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
@@ -20,7 +21,8 @@ const profileModalDescInput = profileModalForm.querySelector(".profile-modal__de
 const addModalForm = document.forms["add-form"];
 
 //instantiate classes
-const userInfo = new UserInfo(profileName, profileJob);
+const userInfo = new Api();
+
 const profileFormValidator = new FormValidator(validatorConfig, profileModalForm);
 const addFormValidator = new FormValidator(validatorConfig, addModalForm);
 profileFormValidator.enableValidation();
@@ -67,8 +69,9 @@ profileAddButton.addEventListener("click", openAddForm);
 
 //event listener callbacks
 function openProfileForm() {
+  console.log(userInfo._userInfo);
   profilePopup.open();
-  const { name, title } = userInfo.getUserInfo();
+  // const { name, title } = userInfo.getUserInfo();
   profileModalNameInput.value = name;
   profileModalDescInput.value = title;
   profileFormValidator.resetValidation();
@@ -85,3 +88,13 @@ function createCard(card) {
   });
   cardsList.addItem(newCard.generateCardElement());
 }
+
+// fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
+//   headers: {
+//     authorization: "1dcec495-7d71-4d31-8e01-7428d02e5e7d",
+//   },
+// })
+//   .then((res) => res.json())
+//   .then((result) => {
+//     console.log(result);
+//   });
