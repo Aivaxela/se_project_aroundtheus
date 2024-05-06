@@ -21,7 +21,13 @@ const profileModalDescInput = profileModalForm.querySelector(".profile-modal__de
 const addModalForm = document.forms["add-form"];
 
 //instantiate classes
-const userInfo = new Api();
+const userInfoApi = new Api({
+  link: "https://around-api.en.tripleten-services.com/v1/users/me",
+  headers: {
+    authorization: "c56e30dc-2883-4270-a59e-b2f7bae969c6",
+    "Content-Type": "application/json",
+  },
+});
 
 const profileFormValidator = new FormValidator(validatorConfig, profileModalForm);
 const addFormValidator = new FormValidator(validatorConfig, addModalForm);

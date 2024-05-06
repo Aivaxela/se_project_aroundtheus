@@ -1,6 +1,11 @@
 export default class Api {
   constructor(options) {
-    this.getUserInfo();
+    this._link = options.link;
+    this._headers = options.headers;
+
+    console.log(this._headers);
+
+    // this.getUserInfo();
   }
 
   getInitialCards() {
