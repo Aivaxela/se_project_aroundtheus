@@ -22,7 +22,7 @@ const addModalForm = document.forms["add-form"];
 
 //instantiate classes
 const userInfo = new UserInfo(profileNameEl, profileAboutEl);
-userInfo.updateUserInfoFromApi();
+userInfo.getUserInfo();
 
 const profileFormValidator = new FormValidator(validatorConfig, profileModalForm);
 const addFormValidator = new FormValidator(validatorConfig, addModalForm);
@@ -71,8 +71,8 @@ profileAddButton.addEventListener("click", openAddForm);
 //event listener callbacks
 function openProfileForm() {
   profilePopup.open();
-  profileModalNameInput.value = profileNameEl.textContent;
-  profileModalDescInput.value = profileAboutEl.textContent;
+  profileModalNameInput.value = userInfo.name.textContent;
+  profileModalDescInput.value = userInfo.about.textContent;
   profileFormValidator.resetValidation();
   profileFormValidator.toggleButtonState();
 }

@@ -1,7 +1,9 @@
 export default class Api {
-  constructor({ link, headers }) {
-    this._link = link;
+  constructor({ url, method, headers, body }) {
+    this._url = url;
+    this._method = method;
     this._headers = headers;
+    this._body = body;
 
     // this.getUserInfo();
   }
@@ -20,24 +22,14 @@ export default class Api {
     });
   }
 
-  getUserInfo() {
-    return fetch(this._link, { headers: this._headers }).then((res) => res.json());
-    // .then((result) => {
-    //   return result;
-    //   // this._userInfo = result;
-    //   // name.textContent = result.name;
-    //   // about.textContent = result.about;
-    // });
+  getUserInfoApi() {
+    return fetch(this._url, { headers: this._headers }).then((res) => res.json());
+  }
+
+  setUserInfoApi() {
+    fetch(this._url, { method: this._method, headers: this._headers, body: this._body });
   }
 }
-
-// const api = new Api({
-//   baseUrl: "https://around-api.en.tripleten-services.com/v1",
-//   headers: {
-//     authorization: "c56e30dc-2883-4270-a59e-b2f7bae969c6",
-//     "Content-Type": "application/json",
-//   },
-// });
 
 // fetch("https://around-api.en.tripleten-services.com/v1/cards", {
 //   headers: {
