@@ -1,9 +1,7 @@
 export default class Api {
-  constructor(options) {
-    this._link = options.link;
-    this._headers = options.headers;
-
-    console.log(this._headers);
+  constructor({ link, headers }) {
+    this._link = link;
+    this._headers = headers;
 
     // this.getUserInfo();
   }
@@ -23,15 +21,13 @@ export default class Api {
   }
 
   getUserInfo() {
-    fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
-      headers: {
-        authorization: "1dcec495-7d71-4d31-8e01-7428d02e5e7d",
-      },
-    })
-      .then((res) => res.json())
-      .then((result) => {
-        this._userInfo = result;
-      });
+    return fetch(this._link, { headers: this._headers }).then((res) => res.json());
+    // .then((result) => {
+    //   return result;
+    //   // this._userInfo = result;
+    //   // name.textContent = result.name;
+    //   // about.textContent = result.about;
+    // });
   }
 }
 

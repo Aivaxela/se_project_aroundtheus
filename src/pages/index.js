@@ -13,21 +13,16 @@ import { initialCards, validatorConfig, cardsListSection } from "../utils/consta
 const profile = document.querySelector(".profile");
 const profileEditButton = profile.querySelector(".profile__edit-button");
 const profileAddButton = profile.querySelector(".profile__add-button");
-const profileName = profile.querySelector(".profile__title");
-const profileJob = profile.querySelector(".profile__description");
+const profileNameEl = profile.querySelector(".profile__title");
+const profileAboutEl = profile.querySelector(".profile__description");
 const profileModalForm = document.forms["profile-form"];
 const profileModalNameInput = profileModalForm.querySelector(".profile-modal__name-input");
 const profileModalDescInput = profileModalForm.querySelector(".profile-modal__desc-input");
 const addModalForm = document.forms["add-form"];
 
 //instantiate classes
-const userInfoApi = new Api({
-  link: "https://around-api.en.tripleten-services.com/v1/users/me",
-  headers: {
-    authorization: "c56e30dc-2883-4270-a59e-b2f7bae969c6",
-    "Content-Type": "application/json",
-  },
-});
+const userInfo = new UserInfo(profileNameEl, profileAboutEl);
+userInfo.updateUserInfoFromApi();
 
 const profileFormValidator = new FormValidator(validatorConfig, profileModalForm);
 const addFormValidator = new FormValidator(validatorConfig, addModalForm);
@@ -75,11 +70,9 @@ profileAddButton.addEventListener("click", openAddForm);
 
 //event listener callbacks
 function openProfileForm() {
-  console.log(userInfo._userInfo);
   profilePopup.open();
-  // const { name, title } = userInfo.getUserInfo();
-  profileModalNameInput.value = name;
-  profileModalDescInput.value = title;
+  profileModalNameInput.value = profileNameEl.textContent;
+  profileModalDescInput.value = profileAboutEl.textContent;
   profileFormValidator.resetValidation();
   profileFormValidator.toggleButtonState();
 }
@@ -94,13 +87,3 @@ function createCard(card) {
   });
   cardsList.addItem(newCard.generateCardElement());
 }
-
-// fetch("https://around-api.en.tripleten-services.com/v1/users/me", {
-//   headers: {
-//     authorization: "1dcec495-7d71-4d31-8e01-7428d02e5e7d",
-//   },
-// })
-//   .then((res) => res.json())
-//   .then((result) => {
-//     console.log(result);
-//   });
