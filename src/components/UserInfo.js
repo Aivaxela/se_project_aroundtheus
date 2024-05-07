@@ -1,16 +1,18 @@
 import Api from "./Api.js";
 
 export default class UserInfo {
-  constructor(nameEl, aboutEl) {
+  constructor(nameEl, aboutEl, userAuth, userApiEndpoint) {
     this.name = nameEl;
     this.about = aboutEl;
+    this._auth = userAuth;
+    this._endpoint = userApiEndpoint;
   }
 
   getUserInfo() {
     const userInfoApiGet = new Api({
-      url: "https://around-api.en.tripleten-services.com/v1/users/me",
+      url: this._endpoint,
       headers: {
-        authorization: "1dcec495-7d71-4d31-8e01-7428d02e5e7d",
+        authorization: this._auth,
         "Content-Type": "application/json",
       },
     });
@@ -22,10 +24,10 @@ export default class UserInfo {
 
   setUserInfo({ name, desc }) {
     const userInfoApiSet = new Api({
-      url: "https://around-api.en.tripleten-services.com/v1/users/me",
+      url: this._endpoint,
       method: "PATCH",
       headers: {
-        authorization: "1dcec495-7d71-4d31-8e01-7428d02e5e7d",
+        authorization: this._auth,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({

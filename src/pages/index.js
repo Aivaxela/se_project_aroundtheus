@@ -7,7 +7,7 @@ import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import "../pages/index.css";
-import { initialCards, validatorConfig, cardsListSection } from "../utils/constants.js";
+import { initialCards, validatorConfig, cardsListSection, apiData } from "../utils/constants.js";
 
 //select elements
 const profile = document.querySelector(".profile");
@@ -21,7 +21,12 @@ const profileModalDescInput = profileModalForm.querySelector(".profile-modal__de
 const addModalForm = document.forms["add-form"];
 
 //instantiate classes
-const userInfo = new UserInfo(profileNameEl, profileAboutEl);
+const userInfo = new UserInfo(
+  profileNameEl,
+  profileAboutEl,
+  apiData.userAuthorization,
+  apiData.currentUser
+);
 userInfo.getUserInfo();
 
 const profileFormValidator = new FormValidator(validatorConfig, profileModalForm);
