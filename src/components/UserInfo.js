@@ -1,20 +1,17 @@
 import Api from "./Api.js";
 
 export default class UserInfo {
-  constructor(nameEl, aboutEl, userAuth, userApiEndpoint) {
+  constructor(nameEl, aboutEl, headers, userApiEndpoint) {
     this.name = nameEl;
     this.about = aboutEl;
-    this._auth = userAuth;
+    this._headers = headers;
     this._endpoint = userApiEndpoint;
   }
 
   getUserInfo() {
     const userInfoApiGet = new Api({
       url: this._endpoint,
-      headers: {
-        authorization: this._auth,
-        "Content-Type": "application/json",
-      },
+      headers: this._headers,
     });
     userInfoApiGet.getUserInfoApi().then(({ name, about }) => {
       this.name.textContent = name;
@@ -26,10 +23,7 @@ export default class UserInfo {
     const userInfoApiSet = new Api({
       url: this._endpoint,
       method: "PATCH",
-      headers: {
-        authorization: this._auth,
-        "Content-Type": "application/json",
-      },
+      headers: this._headers,
       body: JSON.stringify({
         name: name,
         about: desc,

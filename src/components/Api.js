@@ -23,5 +23,20 @@ export default class Api {
     fetch(this._url, { method: this._method, headers: this._headers, body: this._body });
   }
 
-  getInitialCards() {}
+  getInitialCardsApi() {
+    return fetch(this._url, { headers: this._headers })
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
+
+  postCard() {
+    fetch(this._url, { method: this._method, headers: this._headers, body: this._body });
+  }
 }
