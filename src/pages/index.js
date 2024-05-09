@@ -7,7 +7,8 @@ import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import "../pages/index.css";
-import { initialCards, validatorConfig, cardsListSelector, apiData } from "../utils/constants.js";
+import { validatorConfig, cardsListSelector, apiData } from "../utils/constants.js";
+import PopupConfirm from "../components/PopupConfirm.js";
 
 //select elements
 const profile = document.querySelector(".profile");
@@ -68,6 +69,10 @@ addImagePopup.setEventListeners();
 const imagePopup = new PopupWithImage("#image-modal");
 imagePopup.setEventListeners();
 
+const confirmPopup = new PopupConfirm("#confirm-modal");
+confirmPopup.setEventListeners();
+confirmPopup.open();
+
 //add event listeners
 profileEditButton.addEventListener("click", openProfileForm);
 profileAddButton.addEventListener("click", openAddForm);
@@ -88,7 +93,7 @@ function openAddForm() {
 
 function createCard(card) {
   const newCard = new Card(card, "#card-template", () => {
-    imagePopup.open(newCard);
+    imagePopup.open(newCard), (cardId) => confirmPopup.open(cardId);
   });
   return newCard.generateCardElement();
 }

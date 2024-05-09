@@ -2,12 +2,14 @@ import Api from "./Api.js";
 import { apiData } from "../utils/constants.js";
 
 export default class Card {
-  constructor({ name, link, _id }, cardSelector, handleCardImageClick) {
+  constructor({ name, link, _id }, cardSelector, handleCardImageClick, handleCardDeleteClick) {
     this._name = name;
     this._link = link;
     this._id = _id;
     this._cardSelector = cardSelector;
     this._handleCardImageClick = handleCardImageClick;
+    this._handleCardDeleteClick = handleCardDeleteClick;
+    console.log(this._handleCardDeleteClick);
   }
 
   generateCardElement() {
@@ -33,16 +35,17 @@ export default class Card {
       this._handleCardImageClick();
     });
     this._cardDeleteIcon.addEventListener("click", () => {
-      this._handleCardDelete();
+      this._handleCardDeleteClick(this._id);
     });
     this._cardLikeIcon.addEventListener("click", this._handleCardLike);
   }
 
-  _handleCardDelete() {
-    this._cardElement.remove();
-    this._cardElement = null;
-    this._deleteCardFromApi();
-  }
+  // _handleCardDelete() {
+
+  //   this._cardElement.remove();
+  //   this._cardElement = null;
+  //   this._deleteCardFromApi();
+  // }
 
   _deleteCardFromApi() {
     const deleteCardApi = new Api({
