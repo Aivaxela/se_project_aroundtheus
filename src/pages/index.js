@@ -21,6 +21,7 @@ const profileModalDescInput = profileModalForm.querySelector(".profile-modal__de
 const addModalForm = document.forms["add-form"];
 const confirmModal = document.querySelector("#confirm-modal");
 
+confirmModal.classList.add("modal_opened");
 //instantiate classes
 const userInfo = new UserInfo(profileNameEl, profileAboutEl, apiData.headers, apiData.currentUser);
 userInfo.getUserInfo();
