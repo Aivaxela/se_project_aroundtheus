@@ -13,7 +13,7 @@ export default class UserInfo {
       url: this._endpoint,
       headers: this._headers,
     });
-    userInfoApiGet.getUserInfoApi().then(({ name, about }) => {
+    userInfoApiGet.retrieveData().then(({ name, about }) => {
       this.name.textContent = name;
       this.about.textContent = about;
     });
@@ -29,7 +29,7 @@ export default class UserInfo {
         about: desc,
       }),
     });
-    userInfoApiSet.setUserInfoApi();
+    userInfoApiSet.sendData();
     this.name.textContent = name;
     this.about.textContent = desc;
   }

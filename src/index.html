@@ -43,9 +43,9 @@
         </ul>
       </section>
     </main>
-    <footer class="footer page__section">© 2022 Around The U.S.</footer>
+    <footer class="footer page__section">© 2024 Around The U.S.</footer>
 
-    <div class="modal profile-modal" id="profile-modal">
+    <div class="modal" id="profile-modal">
       <div class="modal__container">
         <button class="modal__close profile-modal__close"></button>
         <h2 class="modal__heading profile-modal__heading">Edit profile</h2>
@@ -72,21 +72,21 @@
             required
           />
           <span class="modal__input-error" id="modal-desc-error"></span>
-          <button class="modal__button profile-modal__button" type="submit">Save</button>
+          <button class="modal__button" type="submit">Save</button>
         </form>
       </div>
     </div>
 
-    <div class="modal add-modal" id="add-modal">
+    <div class="modal" id="add-modal">
       <div class="modal__container">
-        <button class="modal__close add-modal__close"></button>
-        <h2 class="modal__heading add-modal__heading">New place</h2>
-        <form class="modal__form add-modal__form" id="add-form">
+        <button class="modal__close"></button>
+        <h2 class="modal__heading">New place</h2>
+        <form class="modal__form" id="add-form">
           <input
             type="text"
             name="Title"
             id="modal-title"
-            class="modal__input add-modal__title-input"
+            class="modal__input"
             placeholder="Title"
             minlength="1"
             maxlength="30"
@@ -97,16 +97,12 @@
             type="url"
             name="Link"
             id="modal-link"
-            class="modal__input add-modal__link-input"
+            class="modal__input"
             placeholder="Image link"
             required
           />
           <span class="modal__input-error" id="modal-link-error"></span>
-          <button
-            class="modal__button add-modal__button modal__button_inactive"
-            type="submit"
-            disabled
-          >
+          <button class="modal__button modal__button_inactive" type="submit" disabled>
             Create
           </button>
         </form>
@@ -118,6 +114,14 @@
         <button class="modal__close image-modal__close"></button>
         <img class="image-modal__image" src="" alt="image-enlarged" />
         <p class="image-modal__caption"></p>
+      </div>
+    </div>
+
+    <div class="modal confirm-modal" id="confirm-modal">
+      <div class="modal__container">
+        <button class="modal__close"></button>
+        <h2 class="modal__heading">Are you sure?</h2>
+        <button class="modal__button" type="submit">Yes</button>
       </div>
     </div>
   </body>

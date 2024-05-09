@@ -1,7 +1,11 @@
+import Api from "./Api.js";
+import { apiData } from "../utils/constants.js";
+
 export default class Card {
-  constructor({ name, link }, cardSelector, handleCardImageClick) {
+  constructor({ name, link, _id }, cardSelector, handleCardImageClick) {
     this._name = name;
     this._link = link;
+    this._id = _id;
     this._cardSelector = cardSelector;
     this._handleCardImageClick = handleCardImageClick;
   }
@@ -37,6 +41,16 @@ export default class Card {
   _handleCardDelete() {
     this._cardElement.remove();
     this._cardElement = null;
+    this._deleteCardFromApi();
+  }
+
+  _deleteCardFromApi() {
+    const deleteCardApi = new Api({
+      url: `${apiData.cards}/${this._id}`,
+      method: "DELETE",
+      headers: apiData.headers,
+    });
+    deleteCardApi.sendData();
   }
 
   _handleCardLike() {

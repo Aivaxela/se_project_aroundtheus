@@ -6,7 +6,7 @@ export default class Api {
     this._body = body;
   }
 
-  getUserInfoApi() {
+  retrieveData() {
     return fetch(this._url, { headers: this._headers })
       .then((res) => {
         if (res.ok) {
@@ -19,24 +19,7 @@ export default class Api {
       });
   }
 
-  setUserInfoApi() {
-    fetch(this._url, { method: this._method, headers: this._headers, body: this._body });
-  }
-
-  getInitialCardsApi() {
-    return fetch(this._url, { headers: this._headers })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Error: ${res.status}`);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  postCard() {
+  sendData() {
     fetch(this._url, { method: this._method, headers: this._headers, body: this._body });
   }
 }

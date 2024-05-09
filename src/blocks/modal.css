@@ -17,7 +17,6 @@
 
 .modal__container {
   margin: auto;
-  padding: 0 19px;
   width: 430px;
   padding: 34px;
   background-color: white;
@@ -70,6 +69,7 @@
 
 .modal__button {
   margin-top: 18.26px;
+  width: 100%;
   padding: 0;
   height: 50.15px;
   border-style: none;
