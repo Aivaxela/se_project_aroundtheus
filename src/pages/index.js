@@ -29,7 +29,7 @@ const initialCardsApi = new Api({
   url: apiData.cards,
   headers: apiData.headers,
 });
-initialCardsApi.retrieveData().then((res) => {
+initialCardsApi.handleFetch().then((res) => {
   cardsListSection.renderItems(res, true);
 });
 
@@ -102,5 +102,5 @@ function uploadCardToApi(link, title) {
       link: link,
     }),
   });
-  uploadCardApi.sendData();
+  uploadCardApi.handleFetch();
 }

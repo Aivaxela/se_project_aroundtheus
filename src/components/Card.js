@@ -50,7 +50,7 @@ export default class Card {
       method: "DELETE",
       headers: apiData.headers,
     });
-    deleteCardApi.sendData();
+    deleteCardApi.handleFetch();
   }
 
   _handleCardLike() {
