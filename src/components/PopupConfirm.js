@@ -8,8 +8,8 @@ export default class PopupConfirm extends Popup {
   }
 
   open(data) {
-    console.log(data);
     super.open();
+    this._data = data;
   }
 
   _getInputValues() {
@@ -23,12 +23,12 @@ export default class PopupConfirm extends Popup {
 
   setEventListeners() {
     super.setEventListeners();
-    this._popupElement.addEventListener("submit", this._onPopupSubmit);
+    this._submitButton.addEventListener("click", this._submitPressed);
   }
 
-  _onPopupSubmit = (evt) => {
+  _submitPressed = (evt) => {
     const event = evt;
-    this._handleFormSubmit(this._getInputValues(), event);
+    this._onConfirm(this._data, event);
     this.close();
   };
 }

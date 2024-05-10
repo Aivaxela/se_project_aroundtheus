@@ -20,9 +20,7 @@ const profileModalForm = document.forms["profile-form"];
 const profileModalNameInput = profileModalForm.querySelector(".profile-modal__name-input");
 const profileModalDescInput = profileModalForm.querySelector(".profile-modal__desc-input");
 const addModalForm = document.forms["add-form"];
-const confirmModal = document.querySelector("#confirm-modal");
 
-confirmModal.classList.add("modal_opened");
 //instantiate classes
 const userInfo = new UserInfo(profileNameEl, profileAboutEl, apiData.headers, apiData.currentUser);
 userInfo.getUserInfo();
@@ -69,9 +67,18 @@ addImagePopup.setEventListeners();
 const imagePopup = new PopupWithImage("#image-modal");
 imagePopup.setEventListeners();
 
-const confirmPopup = new PopupConfirm("#confirm-modal");
+const confirmPopup = new PopupConfirm("#confirm-modal", (cardData, evt) => {
+  evt.preventDefault();
+  const deleteCardApi = new Api({
+    url: `${apiData.cards}/${cardData.cardId}`,
+    method: "DELETE",
+    headers: apiData.headers,
+  });
+  deleteCardApi.handleFetch();
+  cardData.cardEl.remove();
+  cardData.cardEl = null;
+});
 confirmPopup.setEventListeners();
-confirmPopup.open();
 
 //add event listeners
 profileEditButton.addEventListener("click", openProfileForm);
@@ -92,9 +99,16 @@ function openAddForm() {
 }
 
 function createCard(card) {
-  const newCard = new Card(card, "#card-template", () => {
-    imagePopup.open(newCard), (cardId) => confirmPopup.open(cardId);
-  });
+  const newCard = new Card(
+    card,
+    "#card-template",
+    () => {
+      imagePopup.open(newCard);
+    },
+    (cardData) => {
+      confirmPopup.open(cardData);
+    }
+  );
   return newCard.generateCardElement();
 }
 

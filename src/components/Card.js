@@ -9,7 +9,6 @@ export default class Card {
     this._cardSelector = cardSelector;
     this._handleCardImageClick = handleCardImageClick;
     this._handleCardDeleteClick = handleCardDeleteClick;
-    console.log(this._handleCardDeleteClick);
   }
 
   generateCardElement() {
@@ -24,7 +23,6 @@ export default class Card {
     this._cardTitle.textContent = this._name;
     this._cardImage.alt = this._name;
     this._cardImage.src = this._link;
-
     this._setEventListeners();
 
     return this._cardElement;
@@ -35,7 +33,7 @@ export default class Card {
       this._handleCardImageClick();
     });
     this._cardDeleteIcon.addEventListener("click", () => {
-      this._handleCardDeleteClick(this._id);
+      this._handleCardDeleteClick({ cardEl: this._cardElement, cardId: this._id });
     });
     this._cardLikeIcon.addEventListener("click", this._handleCardLike);
   }
@@ -46,15 +44,6 @@ export default class Card {
   //   this._cardElement = null;
   //   this._deleteCardFromApi();
   // }
-
-  _deleteCardFromApi() {
-    const deleteCardApi = new Api({
-      url: `${apiData.cards}/${this._id}`,
-      method: "DELETE",
-      headers: apiData.headers,
-    });
-    deleteCardApi.handleFetch();
-  }
 
   _handleCardLike() {
     this.classList.toggle("card__like-button_pressed");
