@@ -107,6 +107,17 @@ function createCard(card) {
     },
     (cardData) => {
       confirmPopup.open(cardData);
+    },
+    (cardData) => {
+      const handleCardLikeApi = new Api({
+        url: `${apiData.cards}/${cardData.cardId}/likes`,
+        method: cardData.method,
+        headers: apiData.headers,
+      });
+      handleCardLikeApi.handleFetch();
+      console.log(cardData.cardEl);
+      cardData.cardEl.classList.toggle("card__like-button_pressed");
+      console.log(`${apiData.cards}/${cardData.cardId}/likes`);
     }
   );
   return newCard.generateCardElement();

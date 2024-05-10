@@ -1,14 +1,19 @@
-import Api from "./Api.js";
-import { apiData } from "../utils/constants.js";
-
 export default class Card {
-  constructor({ name, link, _id }, cardSelector, handleCardImageClick, handleCardDeleteClick) {
+  constructor(
+    { name, link, _id, isLiked },
+    cardSelector,
+    handleCardImageClick,
+    handleCardDeleteClick,
+    handleCardLikeClick
+  ) {
     this._name = name;
     this._link = link;
     this._id = _id;
+    this._isLiked = isLiked;
     this._cardSelector = cardSelector;
     this._handleCardImageClick = handleCardImageClick;
     this._handleCardDeleteClick = handleCardDeleteClick;
+    this._handleCardLikeClick = handleCardLikeClick;
   }
 
   generateCardElement() {
@@ -24,28 +29,48 @@ export default class Card {
     this._cardImage.alt = this._name;
     this._cardImage.src = this._link;
     this._setEventListeners();
+    this._setInitialLikeStatus();
 
     return this._cardElement;
   }
 
+  _setInitialLikeStatus() {
+    if (this._isLiked) {
+      this._cardLikeIcon.classList.add("card__like-button_pressed");
+    }
+  }
+
+  _updateLikeStatus() {
+    if (this._isLiked) {
+      this._cardLikeIcon.classList.remove("card__like-button_pressed");
+    } else {
+      this._cardLikeIcon.classList.add("card__like-button_pressed");
+    }
+  }
+
   _setEventListeners() {
+    console.log(this._isLiked);
     this._cardImage.addEventListener("click", () => {
       this._handleCardImageClick();
     });
     this._cardDeleteIcon.addEventListener("click", () => {
       this._handleCardDeleteClick({ cardEl: this._cardElement, cardId: this._id });
     });
-    this._cardLikeIcon.addEventListener("click", this._handleCardLike);
-  }
-
-  // _handleCardDelete() {
-
-  //   this._cardElement.remove();
-  //   this._cardElement = null;
-  //   this._deleteCardFromApi();
-  // }
-
-  _handleCardLike() {
-    this.classList.toggle("card__like-button_pressed");
+    this._cardLikeIcon.addEventListener("click", this._updateLikeStatus);
+    this._cardLikeIcon.addEventListener("click", () => {
+      if (this._isLiked) {
+        this._handleCardLikeClick({
+          cardId: this._id,
+          method: "DELETE",
+          cardEl: this._cardElement,
+        });
+      } else {
+        this._handleCardLikeClick({
+          cardId: this._id,
+          method: "PUT",
+          cardEl: this._cardElement,
+        });
+      }
+    });
   }
 }
