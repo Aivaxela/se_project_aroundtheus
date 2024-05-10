@@ -115,9 +115,6 @@ function createCard(card) {
         headers: apiData.headers,
       });
       handleCardLikeApi.handleFetch();
-      console.log(cardData.cardEl);
-      cardData.cardEl.classList.toggle("card__like-button_pressed");
-      console.log(`${apiData.cards}/${cardData.cardId}/likes`);
     }
   );
   return newCard.generateCardElement();

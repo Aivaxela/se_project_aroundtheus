@@ -40,16 +40,27 @@ export default class Card {
     }
   }
 
-  _updateLikeStatus() {
+  _updateLikeStatus = () => {
     if (this._isLiked) {
       this._cardLikeIcon.classList.remove("card__like-button_pressed");
+      this._handleCardLikeClick({
+        cardId: this._id,
+        method: "DELETE",
+        cardEl: this._cardElement,
+      });
+      this._isLiked = false;
     } else {
       this._cardLikeIcon.classList.add("card__like-button_pressed");
+      this._handleCardLikeClick({
+        cardId: this._id,
+        method: "PUT",
+        cardEl: this._cardElement,
+      });
+      this._isLiked = true;
     }
-  }
+  };
 
   _setEventListeners() {
-    console.log(this._isLiked);
     this._cardImage.addEventListener("click", () => {
       this._handleCardImageClick();
     });
@@ -57,20 +68,5 @@ export default class Card {
       this._handleCardDeleteClick({ cardEl: this._cardElement, cardId: this._id });
     });
     this._cardLikeIcon.addEventListener("click", this._updateLikeStatus);
-    this._cardLikeIcon.addEventListener("click", () => {
-      if (this._isLiked) {
-        this._handleCardLikeClick({
-          cardId: this._id,
-          method: "DELETE",
-          cardEl: this._cardElement,
-        });
-      } else {
-        this._handleCardLikeClick({
-          cardId: this._id,
-          method: "PUT",
-          cardEl: this._cardElement,
-        });
-      }
-    });
   }
 }
