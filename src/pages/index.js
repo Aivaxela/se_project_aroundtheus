@@ -6,9 +6,9 @@ import Api from "../components/Api.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
-import "../pages/index.css";
-import { validatorConfig, cardsListSelector, apiData } from "../utils/constants.js";
 import PopupConfirm from "../components/PopupConfirm.js";
+import { validatorConfig, cardsListSelector, apiData } from "../utils/constants.js";
+import "../pages/index.css";
 
 //select elements
 const profile = document.querySelector(".profile");
@@ -16,13 +16,22 @@ const profileEditButton = profile.querySelector(".profile__edit-button");
 const profileAddButton = profile.querySelector(".profile__add-button");
 const profileNameEl = profile.querySelector(".profile__title");
 const profileAboutEl = profile.querySelector(".profile__description");
+const profileAvatar = profile.querySelector(".profile__image");
+const profileAvatarEdit = profile.querySelector(".profile__image-edit");
 const profileModalForm = document.forms["profile-form"];
 const profileModalNameInput = profileModalForm.querySelector(".profile-modal__name-input");
 const profileModalDescInput = profileModalForm.querySelector(".profile-modal__desc-input");
 const addModalForm = document.forms["add-form"];
+const avatarEditForm = document.forms["avatar-edit-form"];
 
 //instantiate classes
-const userInfo = new UserInfo(profileNameEl, profileAboutEl, apiData.headers, apiData.currentUser);
+const userInfo = new UserInfo({
+  name: profileNameEl,
+  about: profileAboutEl,
+  avatar: profileAvatar,
+  apiHeaders: apiData.headers,
+  apiUser: apiData.currentUser,
+});
 userInfo.getUserInfo();
 
 const initialCardsApi = new Api({
@@ -39,8 +48,10 @@ const cardsListSection = new Section((item, firstRender) => {
 
 const profileFormValidator = new FormValidator(validatorConfig, profileModalForm);
 const addFormValidator = new FormValidator(validatorConfig, addModalForm);
+const avatarEditFormValidator = new FormValidator(validatorConfig, avatarEditForm);
 profileFormValidator.enableValidation();
 addFormValidator.enableValidation();
+avatarEditFormValidator.enableValidation();
 
 const profilePopup = new PopupWithForm(
   "#profile-modal",
@@ -52,13 +63,24 @@ const profilePopup = new PopupWithForm(
 );
 profilePopup.setEventListeners();
 
+const avatarEditPopup = new PopupWithForm(
+  "#avatar-edit-modal",
+  (inputValue, evt) => {
+    evt.preventDefault();
+    profileAvatar.src = inputValue.Link;
+    updateAvatar(profileAvatar.src);
+  },
+  avatarEditFormValidator
+);
+avatarEditPopup.setEventListeners();
+
 const addImagePopup = new PopupWithForm(
   "#add-modal",
   (inputFieldValues, evt) => {
     evt.preventDefault();
     const { Link: link, Title: title } = inputFieldValues;
     cardsListSection.addItem(createCard({ name: title, link: link }), false);
-    uploadCardToApi(link, title);
+    uploadCard(link, title);
   },
   addFormValidator
 );
@@ -69,35 +91,22 @@ imagePopup.setEventListeners();
 
 const confirmPopup = new PopupConfirm("#confirm-modal", (cardData, evt) => {
   evt.preventDefault();
-  const deleteCardApi = new Api({
-    url: `${apiData.cards}/${cardData.cardId}`,
-    method: "DELETE",
-    headers: apiData.headers,
-  });
-  deleteCardApi.handleFetch();
-  cardData.cardEl.remove();
-  cardData.cardEl = null;
+  deleteCard(cardData);
 });
 confirmPopup.setEventListeners();
 
 //add event listeners
-profileEditButton.addEventListener("click", openProfileForm);
-profileAddButton.addEventListener("click", openAddForm);
-
-//event listener callbacks
-function openProfileForm() {
+profileEditButton.addEventListener("click", () => {
   profilePopup.open();
   profileModalNameInput.value = userInfo.name.textContent;
   profileModalDescInput.value = userInfo.about.textContent;
   profileFormValidator.resetValidation();
   profileFormValidator.toggleButtonState();
-}
+});
+profileAddButton.addEventListener("click", () => addImagePopup.open());
+profileAvatarEdit.addEventListener("click", () => avatarEditPopup.open());
 
 //functions
-function openAddForm() {
-  addImagePopup.open();
-}
-
 function createCard(card) {
   const newCard = new Card(
     card,
@@ -109,18 +118,36 @@ function createCard(card) {
       confirmPopup.open(cardData);
     },
     (cardData) => {
-      const handleCardLikeApi = new Api({
-        url: `${apiData.cards}/${cardData.cardId}/likes`,
-        method: cardData.method,
-        headers: apiData.headers,
-      });
-      handleCardLikeApi.handleFetch();
+      updateCardLike(cardData);
     }
   );
   return newCard.generateCardElement();
 }
 
-function uploadCardToApi(link, title) {
+function deleteCard(cardData) {
+  const deleteCardApi = new Api({
+    url: `${apiData.cards}/${cardData.cardId}`,
+    method: "DELETE",
+    headers: apiData.headers,
+  });
+  deleteCardApi.handleFetch();
+  cardData.cardEl.remove();
+  cardData.cardEl = null;
+}
+
+function updateAvatar(newAvatar) {
+  const uploadAvatarImgApi = new Api({
+    url: apiData.currentUserAvatar,
+    method: "PATCH",
+    headers: apiData.headers,
+    body: JSON.stringify({
+      avatar: newAvatar,
+    }),
+  });
+  uploadAvatarImgApi.handleFetch();
+}
+
+function uploadCard(link, title) {
   const uploadCardApi = new Api({
     url: apiData.cards,
     method: "POST",
@@ -131,4 +158,13 @@ function uploadCardToApi(link, title) {
     }),
   });
   uploadCardApi.handleFetch();
+}
+
+function updateCardLike(cardData) {
+  const handleCardLikeApi = new Api({
+    url: `${apiData.cards}/${cardData.cardId}/likes`,
+    method: cardData.method,
+    headers: apiData.headers,
+  });
+  handleCardLikeApi.handleFetch();
 }

@@ -1,11 +1,12 @@
 import Api from "./Api.js";
 
 export default class UserInfo {
-  constructor(nameEl, aboutEl, headers, userApiEndpoint) {
-    this.name = nameEl;
-    this.about = aboutEl;
-    this._headers = headers;
-    this._endpoint = userApiEndpoint;
+  constructor({ name, about, avatar, apiHeaders, apiUser }) {
+    this.name = name;
+    this.about = about;
+    this.avatar = avatar;
+    this._headers = apiHeaders;
+    this._endpoint = apiUser;
   }
 
   getUserInfo() {
@@ -13,9 +14,10 @@ export default class UserInfo {
       url: this._endpoint,
       headers: this._headers,
     });
-    userInfoApiGet.handleFetch().then(({ name, about }) => {
+    userInfoApiGet.handleFetch().then(({ name, about, avatar }) => {
       this.name.textContent = name;
       this.about.textContent = about;
+      this.avatar.src = avatar;
     });
   }
 
