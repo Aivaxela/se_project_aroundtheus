@@ -21,7 +21,7 @@ export default class UserInfo {
     });
   }
 
-  setUserInfo({ name, desc }) {
+  setUserInfo({ name, desc }, popup) {
     const userInfoApiSet = new Api({
       url: this._endpoint,
       method: "PATCH",
@@ -31,7 +31,7 @@ export default class UserInfo {
         about: desc,
       }),
     });
-    userInfoApiSet.handleFetch();
+    userInfoApiSet.handleFetch().then(() => popup.closeAfterSubmit());
     this.name.textContent = name;
     this.about.textContent = desc;
   }

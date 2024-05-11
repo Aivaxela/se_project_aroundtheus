@@ -57,7 +57,7 @@ const profilePopup = new PopupWithForm(
   "#profile-modal",
   (inputFieldValues, evt) => {
     evt.preventDefault();
-    userInfo.setUserInfo(inputFieldValues);
+    userInfo.setUserInfo(inputFieldValues, profilePopup);
   },
   profileFormValidator
 );
@@ -68,6 +68,7 @@ const avatarEditPopup = new PopupWithForm(
   (inputValue, evt) => {
     evt.preventDefault();
     profileAvatar.src = inputValue.Link;
+    // evt.submitter.textContent = "Saving...";
     updateAvatar(profileAvatar.src);
   },
   avatarEditFormValidator
@@ -78,9 +79,7 @@ const addImagePopup = new PopupWithForm(
   "#add-modal",
   (inputFieldValues, evt) => {
     evt.preventDefault();
-    const { Link: link, Title: title } = inputFieldValues;
-    cardsListSection.addItem(createCard({ name: title, link: link }), false);
-    uploadCard(link, title);
+    uploadCard(inputFieldValues);
   },
   addFormValidator
 );
@@ -144,10 +143,11 @@ function updateAvatar(newAvatar) {
       avatar: newAvatar,
     }),
   });
-  uploadAvatarImgApi.handleFetch();
+  uploadAvatarImgApi.handleFetch().then(() => avatarEditPopup.closeAfterSubmit());
 }
 
-function uploadCard(link, title) {
+function uploadCard(inputValues) {
+  const { Link: link, Title: title } = inputValues;
   const uploadCardApi = new Api({
     url: apiData.cards,
     method: "POST",
@@ -157,7 +157,12 @@ function uploadCard(link, title) {
       link: link,
     }),
   });
-  uploadCardApi.handleFetch();
+  uploadCardApi
+    .handleFetch()
+    .then((res) => {
+      cardsListSection.addItem(createCard({ name: title, link: link, _id: res._id }), false);
+    })
+    .then(() => addImagePopup.closeAfterSubmit());
 }
 
 function updateCardLike(cardData) {
