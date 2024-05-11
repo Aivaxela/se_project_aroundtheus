@@ -11,7 +11,7 @@
   visibility: hidden;
   pointer-events: none;
   opacity: 0;
-  transition: visibility 0.5s, opacity 0.5s linear;
+  transition: visibility 0.25s, opacity 0.25s linear;
   cursor: pointer;
 }
 
@@ -29,7 +29,7 @@
   visibility: visible;
   opacity: 1;
   pointer-events: all;
-  transition: visibility 0s, opacity 0.5s linear;
+  transition: visibility 0s, opacity 0.25s linear;
 }
 
 .modal__heading {
