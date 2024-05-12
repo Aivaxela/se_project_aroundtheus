@@ -12,15 +12,6 @@ export default class PopupConfirm extends Popup {
     this._data = data;
   }
 
-  _getInputValues() {
-    const inputFieldValues = {};
-    this._inputFields.forEach((field) => {
-      inputFieldValues[field.name] = field.value;
-    });
-
-    return inputFieldValues;
-  }
-
   setEventListeners() {
     super.setEventListeners();
     this._submitButton.addEventListener("click", this._submitPressed);

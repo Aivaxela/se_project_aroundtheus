@@ -42,21 +42,24 @@ export default class Card {
 
   _updateLikeStatus = () => {
     if (this._isLiked) {
-      this._cardLikeIcon.classList.remove("card__like-button_pressed");
       this._handleCardLikeClick({
         cardId: this._id,
         method: "DELETE",
         cardEl: this._cardElement,
+        status: false,
+        isLiked: this._isLiked,
+        likeIcon: this._cardLikeIcon,
+        card: this,
       });
-      this._isLiked = false;
     } else {
-      this._cardLikeIcon.classList.add("card__like-button_pressed");
       this._handleCardLikeClick({
         cardId: this._id,
         method: "PUT",
         cardEl: this._cardElement,
+        status: true,
+        isLiked: this._isLiked,
+        likeIcon: this._cardLikeIcon,
       });
-      this._isLiked = true;
     }
   };
 
