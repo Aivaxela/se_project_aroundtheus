@@ -1,5 +1,3 @@
-import { closeConditions } from "../utils/constants";
-
 export default class Popup {
   constructor(popupSelector) {
     this._popupElement = document.querySelector(popupSelector);
@@ -20,11 +18,8 @@ export default class Popup {
   }
 
   _handleOutsideClickClose = (evt) => {
-    const eventClasses = [...evt.target.classList];
-    const closeConditionMet = eventClasses.some((className) => {
-      return Object.values(closeConditions).includes(className);
-    });
-    if (closeConditionMet) {
+    const targetClasses = [...evt.target.classList];
+    if (targetClasses.includes("modal") || targetClasses.includes("modal__close")) {
       this.close();
     }
   };

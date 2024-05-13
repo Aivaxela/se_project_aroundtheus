@@ -7,7 +7,7 @@ import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import PopupConfirm from "../components/PopupConfirm.js";
-import { validatorConfig, cardsListSelector, apiData } from "../utils/constants.js";
+import { validatorConfig, cardsListSelector } from "../utils/constants.js";
 import "../pages/index.css";
 
 //select elements
@@ -59,7 +59,7 @@ const profilePopup = new PopupWithForm(
       .then((res) => {
         userInfo.setUserInfo(res);
       })
-      .catch((err) => console.error(err))
+      .catch((err) => alert(err))
       .finally(() => profilePopup.closeAfterSubmit());
   },
   profileFormValidator
@@ -75,7 +75,7 @@ const avatarEditPopup = new PopupWithForm(
       .then((res) => {
         userInfo.setUserInfo(res);
       })
-      .catch((err) => console.error(err))
+      .catch((err) => alert(err))
       .finally(() => avatarEditPopup.closeAfterSubmit());
   },
   avatarEditFormValidator
@@ -94,7 +94,7 @@ const addCardPopup = new PopupWithForm(
           false
         );
       })
-      .catch((err) => console.error(err))
+      .catch((err) => alert(err))
       .finally(() => addCardPopup.closeAfterSubmit());
   },
   addFormValidator
@@ -104,12 +104,12 @@ addCardPopup.setEventListeners();
 api
   .getInitialCards()
   .then((res) => cardsListSection.renderItems(res, true))
-  .catch((err) => console.error(err));
+  .catch((err) => alert(err));
 
 api
   .getUserInfo()
   .then((res) => userInfo.setUserInfo(res))
-  .catch((err) => console.error(err));
+  .catch((err) => alert(err));
 
 const imagePopup = new PopupWithImage("#image-modal");
 imagePopup.setEventListeners();
@@ -122,7 +122,7 @@ const confirmPopup = new PopupConfirm("#confirm-modal", (cardData, evt) => {
       cardData.cardEl.remove();
       cardData.cardEl = null;
     })
-    .catch((err) => console.error(err));
+    .catch((err) => alert(err));
 });
 confirmPopup.setEventListeners();
 
@@ -160,7 +160,7 @@ function createCard(card) {
             card.isLiked = false;
           }
         })
-        .catch((err) => console.error(err));
+        .catch((err) => alert(err));
     }
   );
   return newCard.generateCardElement();
