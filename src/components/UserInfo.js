@@ -5,10 +5,8 @@ export default class UserInfo {
     this.avatar = avatar;
   }
 
-  getUserInfo(apiData) {
-    this.name.textContent = apiData.name;
-    this.about.textContent = apiData.about;
-    this.avatar.src = apiData.avatar;
+  getUserInfo() {
+    return { name: this.name.textContent, about: this.about.textContent };
   }
 
   setUserInfo({ name, about, avatar }) {

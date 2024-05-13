@@ -8,8 +8,8 @@ export default class Card {
   ) {
     this._name = name;
     this._link = link;
-    this._id = _id;
-    this._isLiked = isLiked;
+    this.id = _id;
+    this.isLiked = isLiked;
     this._cardSelector = cardSelector;
     this._handleCardImageClick = handleCardImageClick;
     this._handleCardDeleteClick = handleCardDeleteClick;
@@ -24,7 +24,7 @@ export default class Card {
     this._cardTitle = this._cardElement.querySelector(".card__title");
     this._cardImage = this._cardElement.querySelector(".card__image");
     this._cardDeleteIcon = this._cardElement.querySelector(".card__delete-button");
-    this._cardLikeIcon = this._cardElement.querySelector(".card__like-button");
+    this.cardLikeIcon = this._cardElement.querySelector(".card__like-button");
     this._cardTitle.textContent = this._name;
     this._cardImage.alt = this._name;
     this._cardImage.src = this._link;
@@ -35,41 +35,32 @@ export default class Card {
   }
 
   _setInitialLikeStatus() {
-    if (this._isLiked) {
-      this._cardLikeIcon.classList.add("card__like-button_pressed");
+    if (this.isLiked) {
+      this.cardLikeIcon.classList.add("card__like-button_pressed");
     }
   }
 
-  _updateLikeStatus = () => {
-    if (this._isLiked) {
-      this._handleCardLikeClick({
-        cardId: this._id,
-        method: "DELETE",
-        cardEl: this._cardElement,
-        status: false,
-        isLiked: this._isLiked,
-        likeIcon: this._cardLikeIcon,
-        card: this,
-      });
-    } else {
-      this._handleCardLikeClick({
-        cardId: this._id,
-        method: "PUT",
-        cardEl: this._cardElement,
-        status: true,
-        isLiked: this._isLiked,
-        likeIcon: this._cardLikeIcon,
-      });
-    }
-  };
+  // _updateLikeStatus = () => {
+  //   if (this.isLiked) {
+  //     this._handleCardLikeClick(this, "DELETE");
+  //   } else {
+  //     this._handleCardLikeClick(this, "PUT");
+  //   }
+  // };
 
   _setEventListeners() {
     this._cardImage.addEventListener("click", () => {
       this._handleCardImageClick();
     });
     this._cardDeleteIcon.addEventListener("click", () => {
-      this._handleCardDeleteClick({ cardEl: this._cardElement, cardId: this._id });
+      this._handleCardDeleteClick({ cardEl: this._cardElement, cardId: this.id });
     });
-    this._cardLikeIcon.addEventListener("click", this._updateLikeStatus);
+    this.cardLikeIcon.addEventListener("click", () => {
+      if (this.isLiked) {
+        this._handleCardLikeClick(this, "DELETE");
+      } else {
+        this._handleCardLikeClick(this, "PUT");
+      }
+    });
   }
 }

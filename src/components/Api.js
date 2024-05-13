@@ -87,8 +87,8 @@ export default class Api {
     });
   }
 
-  updateCardLike({ cardId, method }) {
-    return fetch(`${this._baseUrl}cards/${cardId}/likes`, {
+  updateCardLike(id, method) {
+    return fetch(`${this._baseUrl}cards/${id}/likes`, {
       headers: this._headers,
       method: method,
     }).then((res) => {

@@ -82,7 +82,7 @@ const avatarEditPopup = new PopupWithForm(
 );
 avatarEditPopup.setEventListeners();
 
-const addImagePopup = new PopupWithForm(
+const addCardPopup = new PopupWithForm(
   "#add-modal",
   (inputFieldValues, evt) => {
     evt.preventDefault();
@@ -95,11 +95,11 @@ const addImagePopup = new PopupWithForm(
         );
       })
       .catch((err) => console.error(err))
-      .finally(() => addImagePopup.closeAfterSubmit());
+      .finally(() => addCardPopup.closeAfterSubmit());
   },
   addFormValidator
 );
-addImagePopup.setEventListeners();
+addCardPopup.setEventListeners();
 
 api
   .getInitialCards()
@@ -108,7 +108,7 @@ api
 
 api
   .getUserInfo()
-  .then((res) => userInfo.getUserInfo(res))
+  .then((res) => userInfo.setUserInfo(res))
   .catch((err) => console.error(err));
 
 const imagePopup = new PopupWithImage("#image-modal");
@@ -129,12 +129,12 @@ confirmPopup.setEventListeners();
 //add event listeners
 profileEditButton.addEventListener("click", () => {
   profilePopup.open();
-  profileModalNameInput.value = userInfo.name.textContent;
-  profileModalDescInput.value = userInfo.about.textContent;
+  profileModalNameInput.value = userInfo.getUserInfo().name;
+  profileModalDescInput.value = userInfo.getUserInfo().about;
   profileFormValidator.resetValidation();
   profileFormValidator.toggleButtonState();
 });
-profileAddButton.addEventListener("click", () => addImagePopup.open());
+profileAddButton.addEventListener("click", () => addCardPopup.open());
 profileAvatarEdit.addEventListener("click", () => avatarEditPopup.open());
 
 //functions
@@ -148,18 +148,16 @@ function createCard(card) {
     (cardData) => {
       confirmPopup.open(cardData);
     },
-    (cardData) => {
+    (card, method) => {
       api
-        .updateCardLike(cardData)
+        .updateCardLike(card.id, method)
         .then((res) => {
           if (res.isLiked) {
-            console.log(res.isLiked);
-            cardData.likeIcon.classList.add("card__like-button_pressed");
-            cardData.isLiked = true;
+            card.cardLikeIcon.classList.add("card__like-button_pressed");
+            card.isLiked = true;
           } else {
-            console.log(res.isLiked);
-            cardData.likeIcon.classList.remove("card__like-button_pressed");
-            cardData.isLiked = false;
+            card.cardLikeIcon.classList.remove("card__like-button_pressed");
+            card.isLiked = false;
           }
         })
         .catch((err) => console.error(err));
