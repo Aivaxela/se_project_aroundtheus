@@ -138,13 +138,10 @@ profileEditButton.addEventListener("click", () => {
   profileModalNameInput.value = name;
   profileModalDescInput.value = about;
   profileFormValidator.resetValidation();
-  profileFormValidator.toggleButtonState();
 });
 profileAddButton.addEventListener("click", () => addCardPopup.open());
 profileAvatarEdit.addEventListener("click", () => {
   avatarEditPopup.open();
-  avatarEditFormValidator.toggleButtonState();
-  avatarEditFormValidator.resetValidation();
 });
 
 //functions

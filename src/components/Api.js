@@ -5,25 +5,25 @@ export default class Api {
   }
 
   getInitialCards() {
-    return this._request(`cards`, {}).then((res) => this._checkResponse(res));
+    return this._request(`cards`, {});
   }
 
   getUserInfo() {
-    return this._request(`users/me`, {}).then((res) => this._checkResponse(res));
+    return this._request(`users/me`, {});
   }
 
   setUserInfo({ name, desc }) {
     return this._request(`users/me`, {
       method: "PATCH",
       body: JSON.stringify({ name: name, about: desc }),
-    }).then((res) => this._checkResponse(res));
+    });
   }
 
   setUserAvatar(link) {
     return this._request(`users/me/avatar`, {
       method: "PATCH",
       body: JSON.stringify({ avatar: link }),
-    }).then((res) => this._checkResponse(res));
+    });
   }
 
   uploadCard({ Title, Link }) {
@@ -33,19 +33,19 @@ export default class Api {
         name: Title,
         link: Link,
       }),
-    }).then((res) => this._checkResponse(res));
+    });
   }
 
   deleteCard(id) {
     return this._request(`cards/${id}`, {
       method: "DELETE",
-    }).then((res) => this._checkResponse(res));
+    });
   }
 
   updateCardLike(id, method) {
     return this._request(`cards/${id}/likes`, {
       method: method,
-    }).then((res) => this._checkResponse(res));
+    });
   }
 
   _request(endpoint, { method, body }) {
@@ -53,7 +53,7 @@ export default class Api {
       headers: this._headers,
       method: method,
       body: body,
-    });
+    }).then((res) => this._checkResponse(res));
   }
 
   _checkResponse(res) {
