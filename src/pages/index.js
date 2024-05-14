@@ -141,7 +141,11 @@ profileEditButton.addEventListener("click", () => {
   profileFormValidator.toggleButtonState();
 });
 profileAddButton.addEventListener("click", () => addCardPopup.open());
-profileAvatarEdit.addEventListener("click", () => avatarEditPopup.open());
+profileAvatarEdit.addEventListener("click", () => {
+  avatarEditPopup.open();
+  avatarEditFormValidator.toggleButtonState();
+  avatarEditFormValidator.resetValidation();
+});
 
 //functions
 function createCard(card) {
