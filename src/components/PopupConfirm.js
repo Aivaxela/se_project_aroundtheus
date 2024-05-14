@@ -5,6 +5,7 @@ export default class PopupConfirm extends Popup {
     super(popupSelector);
     this._onConfirm = onConfirm;
     this._submitButton = this._popupElement.querySelector(".modal__button");
+    this._submitButtonText = this._submitButton.textContent;
   }
 
   open(data) {
@@ -19,7 +20,11 @@ export default class PopupConfirm extends Popup {
 
   _submitPressed = (evt) => {
     const event = evt;
-    this._onConfirm(this._data, event);
-    this.close();
+    this._submitButton.textContent = "Saving...";
+    this._onConfirm(this._data, event, this._submitButton, this._submitButtonText);
   };
+
+  resetButtonText() {
+    this._submitButton.textContent = this._submitButtonText;
+  }
 }

@@ -27,9 +27,12 @@ export default class PopupWithForm extends Popup {
 
   closeAfterSubmit() {
     this._popupForm.reset();
-    this._submitButton.textContent = this._submitButtonText;
     this._formValidator.toggleButtonState();
     this.close();
+  }
+
+  resetButtonText() {
+    this._submitButton.textContent = this._submitButtonText;
   }
 
   _onPopupSubmit = (evt) => {

@@ -58,9 +58,10 @@ const profilePopup = new PopupWithForm(
       .setUserInfo(inputFieldValues)
       .then((res) => {
         userInfo.setUserInfo(res);
+        profilePopup.closeAfterSubmit();
       })
       .catch((err) => alert(err))
-      .finally(() => profilePopup.closeAfterSubmit());
+      .finally(() => profilePopup.resetButtonText());
   },
   profileFormValidator
 );
@@ -74,9 +75,10 @@ const avatarEditPopup = new PopupWithForm(
       .setUserAvatar(inputFieldValue.Link)
       .then((res) => {
         userInfo.setUserInfo(res);
+        avatarEditPopup.closeAfterSubmit();
       })
       .catch((err) => alert(err))
-      .finally(() => avatarEditPopup.closeAfterSubmit());
+      .finally(() => avatarEditPopup.resetButtonText());
   },
   avatarEditFormValidator
 );
@@ -93,9 +95,10 @@ const addCardPopup = new PopupWithForm(
           createCard({ name: inputFieldValues.Title, link: inputFieldValues.Link, _id: res._id }),
           false
         );
+        addCardPopup.closeAfterSubmit();
       })
       .catch((err) => alert(err))
-      .finally(() => addCardPopup.closeAfterSubmit());
+      .finally(() => addCardPopup.resetButtonText());
   },
   addFormValidator
 );
@@ -121,16 +124,19 @@ const confirmPopup = new PopupConfirm("#confirm-modal", (cardData, evt) => {
     .then(() => {
       cardData.cardEl.remove();
       cardData.cardEl = null;
+      confirmPopup.close();
     })
-    .catch((err) => alert(err));
+    .catch((err) => alert(err))
+    .finally(() => confirmPopup.resetButtonText());
 });
 confirmPopup.setEventListeners();
 
 //add event listeners
 profileEditButton.addEventListener("click", () => {
   profilePopup.open();
-  profileModalNameInput.value = userInfo.getUserInfo().name;
-  profileModalDescInput.value = userInfo.getUserInfo().about;
+  const { name, about } = userInfo.getUserInfo();
+  profileModalNameInput.value = name;
+  profileModalDescInput.value = about;
   profileFormValidator.resetValidation();
   profileFormValidator.toggleButtonState();
 });
@@ -151,15 +157,7 @@ function createCard(card) {
     (card, method) => {
       api
         .updateCardLike(card.id, method)
-        .then((res) => {
-          if (res.isLiked) {
-            card.cardLikeIcon.classList.add("card__like-button_pressed");
-            card.isLiked = true;
-          } else {
-            card.cardLikeIcon.classList.remove("card__like-button_pressed");
-            card.isLiked = false;
-          }
-        })
+        .then((res) => card.toggleCardLike(res.isLiked))
         .catch((err) => alert(err));
     }
   );
