@@ -11,13 +11,12 @@
   visibility: hidden;
   pointer-events: none;
   opacity: 0;
-  transition: visibility 0.5s, opacity 0.5s linear;
+  transition: visibility 0.25s, opacity 0.25s linear;
   cursor: pointer;
 }
 
 .modal__container {
   margin: auto;
-  padding: 0 19px;
   width: 430px;
   padding: 34px;
   background-color: white;
@@ -30,11 +29,11 @@
   visibility: visible;
   opacity: 1;
   pointer-events: all;
-  transition: visibility 0s, opacity 0.5s linear;
+  transition: visibility 0s, opacity 0.25s linear;
 }
 
 .modal__heading {
-  margin: 0 0 42px;
+  margin: 0;
   font-family: Inter, Arial, sans-serif;
   font-weight: 900;
   font-size: 24px;
@@ -42,6 +41,7 @@
 }
 
 .modal__form {
+  margin: 42px 0 0;
   display: flex;
   flex-direction: column;
 }
@@ -70,6 +70,7 @@
 
 .modal__button {
   margin-top: 18.26px;
+  width: 100%;
   padding: 0;
   height: 50.15px;
   border-style: none;
@@ -117,10 +118,14 @@
     padding: 22px;
     width: 238px;
   }
+
   .modal__heading {
-    margin: 0 0 65px;
     font-size: 18px;
     line-height: 21.78px;
+  }
+
+  .modal__form {
+    margin: 65px 0 0;
   }
 
   .modal__close {
