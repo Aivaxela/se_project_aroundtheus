@@ -105,13 +105,11 @@ const addCardPopup = new PopupWithForm(
 addCardPopup.setEventListeners();
 
 api
-  .getInitialCards()
-  .then((res) => cardsListSection.renderItems(res, true))
-  .catch((err) => alert(err));
-
-api
-  .getUserInfo()
-  .then((res) => userInfo.setUserInfo(res))
+  .getUserAndCards()
+  .then((res) => {
+    cardsListSection.renderItems(res.cards, true);
+    userInfo.setUserInfo(res.userInfo);
+  })
   .catch((err) => alert(err));
 
 const imagePopup = new PopupWithImage("#image-modal");

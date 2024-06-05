@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Lifecycle Methods</title>
+    <script src="https://unpkg.com/react@16/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="text/jsx">
+      class Counter extends React.Component {
+        constructor(props) {
+          super(props);
+
+          this.state = { count: 0, secondCount: 5 };
+        }
+
+        tick() {
+          this.setState({
+            count: this.state.count + 1,
+            secondCount: this.state.secondCount + 1
+            })
+          };
+
+          componentDidMount() {
+            this.counter = setInterval(() => this.tick(), 1000);
+            console.log("Component did mount!");
+          }
+
+          componentDidUpdate() {
+            console.log("Component did update!");
+
+            if (this.state.count === 2) {
+              ReactDOM.unmountComponentAtNode(document.getElementById('root'));
+             }
+          }
+
+          componentWillUnmount() {
+            console.log("Component will unmount!");
+            clearInterval(this.counter);
+          }
+
+        render() {
+          console.log("Component rendered!");
+          return (
+            <>
+              <h1>{this.state.count}</h1>
+              <h2>{this.state.secondCount}</h2>
+            </>
+          );
+        }
+      }
+
+      ReactDOM.render(
+        <Counter />,
+        document.querySelector('#root'),
+      );
+    </script>
+  </body>
+</html>

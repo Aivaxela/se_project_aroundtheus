@@ -12,6 +12,15 @@ export default class Api {
     return this._request(`users/me`, {}).then((res) => this._checkResponse(res));
   }
 
+  getUserAndCards() {
+    return Promise.all([this.getInitialCards(), this.getUserInfo()]).then(([cards, userInfo]) => {
+      return {
+        cards,
+        userInfo,
+      };
+    });
+  }
+
   setUserInfo({ name, desc }) {
     return this._request(`users/me`, {
       method: "PATCH",
